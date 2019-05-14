@@ -7,13 +7,15 @@ import { AppComponent } from './app.component';
 import { NavComponent } from './nav/nav.component';
 import { RequestCreateComponent } from './request/request-create/request-create.component';
 import { RequestViewComponent } from './request/request-view/request-view.component';
+import { IsApprovedPipePipe } from './_pipes/IsApprovedPipe.pipe';
 
 @NgModule({
    declarations: [
       AppComponent,
       NavComponent,
       RequestCreateComponent,
-      RequestViewComponent
+      RequestViewComponent,
+      IsApprovedPipePipe
    ],
    imports: [
       BrowserModule,

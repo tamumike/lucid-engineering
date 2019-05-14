@@ -17,18 +17,14 @@ namespace Engineering.API.Data
             _context = context;
 
         }
-        public Task<Request> ApproveRequest(Request request)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public async Task<string> AssignESR()
+        
+        public async Task<string> AssignESR(bool isApproved)
         {
             DateTime currentDate = DateTime.Now.Date;
             string lastTwoDigitsOfYear = currentDate.ToString("yy");
             var storedRequests = await _context.Requests.ToListAsync();
             var selectedRequests = storedRequests
-                .Where(r => r.Approved == false)
+                .Where(r => r.Approved == isApproved)
                 .ToArray();
             int[] ESRsToParse = new int[selectedRequests.Length];
 
@@ -42,15 +38,16 @@ namespace Engineering.API.Data
                 }
             }
 
-            int maxESR = ESRsToParse.Max() + 1;
+            int maxESR = ESRsToParse.Length > 0 ? ESRsToParse.Max() + 1 : 1; 
             string newESR = maxESR.ToString();            
             string zerosToPad = "";
+            string suffix = isApproved ? "-A" : "-N";
 
             for (int i = newESR.Length; i < 3; i++)
             {
                 zerosToPad += "0";
             }
-            return lastTwoDigitsOfYear + "-" + zerosToPad + newESR + "-N";
+            return lastTwoDigitsOfYear + "-" + zerosToPad + newESR + suffix;
         }
 
         public async Task<Request> GetRequest(string ESR)
@@ -65,6 +62,12 @@ namespace Engineering.API.Data
             return requests;
         }
 
+        public async Task<bool> IsApproved(string ESR)
+        {
+            var request = await _context.Requests.SingleOrDefaultAsync(r => r.ESR == ESR);
+            return request.Approved;
+        }
+
         public bool IsAuthorizedMember()
         {
             Domain ctx = Domain.GetCurrentDomain();
@@ -73,6 +76,11 @@ namespace Engineering.API.Data
             GroupPrincipal grp = GroupPrincipal.FindByIdentity(ctx2, "SSRS_Operations");
 
             return user.IsMemberOf(grp);
+        }
+
+        public async Task<bool> SaveAll()
+        {
+            return await _context.SaveChangesAsync() > 0;
         }
 
         public async Task<Request> SubmitRequest(Request request)
