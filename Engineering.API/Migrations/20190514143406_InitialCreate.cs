@@ -12,21 +12,22 @@ namespace Engineering.API.Migrations
                 name: "Requests",
                 columns: table => new
                 {
-                    ESR = table.Column<int>(nullable: false)
+                    Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    ESR = table.Column<string>(nullable: true),
                     DateInitiated = table.Column<DateTime>(nullable: false),
                     RequestedDateForCompletion = table.Column<DateTime>(nullable: false),
-                    InitiatedBy = table.Column<string>(nullable: false),
-                    Group = table.Column<string>(nullable: false),
-                    LocationOfProject = table.Column<string>(nullable: false),
-                    Description = table.Column<string>(nullable: false),
+                    InitiatedBy = table.Column<string>(nullable: true),
+                    Group = table.Column<string>(nullable: true),
+                    LocationOfProject = table.Column<string>(nullable: true),
+                    Description = table.Column<string>(nullable: true),
                     Approved = table.Column<bool>(nullable: false, defaultValue: false),
-                    EngineerAssigned = table.Column<string>(nullable: false),
-                    DateCompleted = table.Column<DateTime>(nullable: false)
+                    EngineerAssigned = table.Column<string>(nullable: true),
+                    DateCompleted = table.Column<DateTime>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Requests", x => x.ESR);
+                    table.PrimaryKey("PK_Requests", x => x.Id);
                 });
         }
 

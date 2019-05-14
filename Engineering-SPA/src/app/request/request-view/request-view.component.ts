@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { environment } from 'src/environments/environment';
+import { environment } from '../../../environments/environment';
 
 @Component({
-  selector: 'app-request',
-  templateUrl: './request.component.html',
-  styleUrls: ['./request.component.css']
+  selector: 'app-request-view',
+  templateUrl: './request-view.component.html',
+  styleUrls: ['./request-view.component.css']
 })
-export class RequestComponent implements OnInit {
+export class RequestViewComponent implements OnInit {
   requests: any;
   baseUrl = environment.apiUrl;
 

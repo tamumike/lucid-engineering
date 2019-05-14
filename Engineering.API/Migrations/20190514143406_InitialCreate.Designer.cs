@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Engineering.API.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20190513161024_UpdateDateCompleteProp")]
-    partial class UpdateDateCompleteProp
+    [Migration("20190514143406_InitialCreate")]
+    partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -23,7 +23,7 @@ namespace Engineering.API.Migrations
 
             modelBuilder.Entity("Engineering.API.Models.Request", b =>
                 {
-                    b.Property<int>("ESR")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -31,28 +31,25 @@ namespace Engineering.API.Migrations
                         .ValueGeneratedOnAdd()
                         .HasDefaultValue(false);
 
-                    b.Property<DateTime>("DateCompleted");
+                    b.Property<DateTime?>("DateCompleted");
 
                     b.Property<DateTime>("DateInitiated");
 
-                    b.Property<string>("Description")
-                        .IsRequired();
+                    b.Property<string>("Description");
 
-                    b.Property<string>("EngineerAssigned")
-                        .IsRequired();
+                    b.Property<string>("ESR");
 
-                    b.Property<string>("Group")
-                        .IsRequired();
+                    b.Property<string>("EngineerAssigned");
 
-                    b.Property<string>("InitiatedBy")
-                        .IsRequired();
+                    b.Property<string>("Group");
 
-                    b.Property<string>("LocationOfProject")
-                        .IsRequired();
+                    b.Property<string>("InitiatedBy");
+
+                    b.Property<string>("LocationOfProject");
 
                     b.Property<DateTime>("RequestedDateForCompletion");
 
-                    b.HasKey("ESR");
+                    b.HasKey("Id");
 
                     b.ToTable("Requests");
                 });

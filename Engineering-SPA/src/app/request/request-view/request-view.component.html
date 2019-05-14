@@ -1,0 +1,32 @@
+<div class="container">
+<table class="table table-striped table-hover table-sm table-bordered">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">ESR</th>
+      <th scope="col">Date Initiated</th>
+      <th scope="col">Reqested Date For Completion</th>
+      <th scope="col">Initiated By</th>
+      <th scope="col">Group</th>
+      <th scope="col">Location</th>
+      <th scope="col">Description</th>
+      <th scope="col">Approved</th>
+      <th scope="col">Engineer</th>
+      <th scope="col">Date Completed</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let request of requests">
+      <th>{{request.esr}}</th>
+      <td>{{request.dateInitiated | date}}</td>
+      <td>{{request.requestedDateForCompletion | date}}</td>
+      <td>{{request.initiatedBy}}</td>
+      <td>{{request.group}}</td>
+      <td>{{request.locationOfProject}}</td>
+      <td>{{request.description}}</td>
+      <td>{{request.approved}}</td>
+      <td>{{request.engineerAssigned}}</td>
+      <td>{{request.dateCompleted}}</td>
+    </tr>
+  </tbody>
+</table>
+</div>
