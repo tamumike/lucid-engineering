@@ -62,7 +62,7 @@ namespace Engineering.API.Controllers
                 ESR = newESR.ToString(),
                 DateInitiated = DateTime.Now.Date,
                 RequestedDateForCompletion = requestForSubmittalDto.RequestedDateForCompletion,
-                InitiatedBy = requestForSubmittalDto.InitiatedBy,
+                InitiatedBy = "mlinden",
                 Group = requestForSubmittalDto.Group,
                 LocationOfProject = requestForSubmittalDto.LocationOfProject,
                 Description = requestForSubmittalDto.Description,

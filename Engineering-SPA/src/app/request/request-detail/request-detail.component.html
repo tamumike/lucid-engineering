@@ -1,0 +1,43 @@
+<div class="container mt-5 w-75">
+  <div class="card text-center border-dark">
+      <div class="card-header">
+          <h3 class="card-title font-weight-bolder mb-0">{{request.esr}}</h3>
+          <!-- <i class="{{request.approved | IsApprovedPipe}}"></i> -->
+      </div>
+      <div class="card-body">
+        <!-- <h3 class="card-title font-weight-bolder">{{request.esr}}</h3> -->
+        <div class="container p-3 text-left">
+            <h6 class="card-subtitle mb-1 font-weight-bold">Group</h6>
+            <p class="card-text text-muted">{{request.group}}</p>
+        </div>
+        <div class="container p-3 text-left">
+            <h6 class="card-subtitle mb-1 font-weight-bold">Location of Project</h6>
+            <p class="card-text text-muted">{{request.locationOfProject}}</p>
+        </div>
+        <div class="container p-3 text-left">
+          <h6 class="card-subtitle mb-1 font-weight-bold">Description</h6>
+          <p class="card-text text-muted">{{request.description}}</p>
+        </div>
+        <div class="container p-3 text-left">
+            <h6 class="card-subtitle mb-1 font-weight-bold">Date Initiated</h6>
+            <p class="card-text text-muted">{{request.dateInitiated | date}}</p>
+        </div>
+        <div class="container p-3 text-left">
+            <h6 class="card-subtitle mb-1 font-weight-bold">Initiated By</h6>
+            <p class="card-text text-muted">{{request.initiatedBy}}</p>
+        </div>
+        <div class="container p-3 text-left">
+            <h6 class="card-subtitle mb-1 font-weight-bold">Engineer Assigned</h6>
+            <p class="card-text text-muted">{{request.engineerAssigned}}</p>
+        </div>
+        <div class="container p-3 text-left">
+            <h6 class="card-subtitle mb-1 font-weight-bold">Requested Date For Completion</h6>
+            <p class="card-text text-muted">{{request.requestedDateForCompletion | date}}</p>
+        </div>
+        <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
+      </div>
+      <div class="card-footer p-2 font-weight-bold">
+        <p class="mb-0 {{request.approved | StatusPipe}}">{{request.approved | ApprovedBoolean}}</p>
+      </div>
+    </div>
+</div>

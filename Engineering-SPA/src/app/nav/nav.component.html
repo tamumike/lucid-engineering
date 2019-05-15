@@ -1,17 +1,17 @@
 <nav class="navbar navbar-expand-md navbar-dark bg-primary">
-  <a class="navbar-brand" href="#">Engineering</a>
+  <a class="navbar-brand" [routerLink]="['/home']">Engineering</a>
 
   <ul class="navbar-nav mr-auto ml-3">
     <div class="dropdown" dropdown>
-        <a class="dropdown-toggle text-light" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" dropdownToggle>
+        <a class="dropdown-toggle text-light" dropdownToggle>
           Service Requests
         </a>
 
         <div class="dropdown-menu mt-3" *dropdownMenu>
-          <a class="dropdown-item" href="#">Create ESR</a>
-          <a class="dropdown-item" href="#">View All ESR</a>
+          <a class="dropdown-item" [routerLink]="['/request-create']">Create ESR</a>
+          <a class="dropdown-item" [routerLink]="['/requests']">View All ESR</a>
         </div>
       </div>
   </ul>
-
+  <img src="../../assets/lucidlogoWhite.png" alt="" class="logo">
 </nav>

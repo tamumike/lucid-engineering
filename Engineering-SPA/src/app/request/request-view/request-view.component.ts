@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { environment } from '../../../environments/environment';
+import { RequestService } from 'src/app/_services/request.service';
+import { ActivatedRoute } from '@angular/router';
+import { Request } from '../../_models/request';
 
 @Component({
   selector: 'app-request-view',
@@ -8,21 +9,21 @@ import { environment } from '../../../environments/environment';
   styleUrls: ['./request-view.component.css']
 })
 export class RequestViewComponent implements OnInit {
-  requests: any;
-  baseUrl = environment.apiUrl;
+  requests: Request[];
 
-  constructor(private http: HttpClient) { }
+  constructor(private requestService: RequestService, private route: ActivatedRoute) { }
 
   ngOnInit() {
-    this.getRequests();
-  }
-
-  getRequests() {
-    this.http.get(this.baseUrl).subscribe(response => {
-      this.requests = response;
-    }, error => {
-      console.log(error);
+    this.route.data.subscribe(data => {
+      this.requests = data['requests'];
     });
   }
 
+  // loadRequests() {
+  //   this.requestService.getRequests().subscribe((res: Request[]) => {
+  //     this.requests = res;
+  //   }, error => {
+  //     console.log(error);
+  //   });
+  // }
 }

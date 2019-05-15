@@ -8,7 +8,6 @@ namespace Engineering.API.Dtos
         [Key]
         public int Id { get; set; }
         public string ESR { get; set; }
-        [Required]
         public DateTime DateInitiated { get; set; }
         [Required]
         public DateTime RequestedDateForCompletion { get; set; }
@@ -22,7 +21,6 @@ namespace Engineering.API.Dtos
         public string Description { get; set; }
         [Required]
         public bool Approved { get; set; }
-        [Required]
         public string EngineerAssigned { get; set; }
         public DateTime? DateCompleted { get; set; }
     }

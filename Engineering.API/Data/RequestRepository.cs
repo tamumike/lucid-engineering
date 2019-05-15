@@ -65,7 +65,10 @@ namespace Engineering.API.Data
         public async Task<bool> IsApproved(string ESR)
         {
             var request = await _context.Requests.SingleOrDefaultAsync(r => r.ESR == ESR);
-            return request.Approved;
+            if (request != null)
+                return request.Approved;
+
+            return false;
         }
 
         public bool IsAuthorizedMember()

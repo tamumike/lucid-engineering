@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container mt-3">
 <table class="table table-striped table-hover table-sm table-bordered text-center">
   <thead class="thead-dark">
     <tr>
@@ -17,7 +17,7 @@
   </thead>
   <tbody>
     <tr *ngFor="let request of requests">
-      <th><button class="btn btn-link"><i class="fa fa-plus-square"></i></button></th>
+      <th><button class="btn btn-link" [routerLink]="['/requests', request.esr]"><i class="fa fa-plus-square"></i></button></th>
       <th>{{request.esr}}</th>
       <td>{{request.dateInitiated | date}}</td>
       <td>{{request.requestedDateForCompletion | date}}</td>
@@ -26,7 +26,7 @@
       <td>{{request.locationOfProject}}</td>
       <!-- <td>{{request.description}}</td> -->
       <!-- <td>{{request.approved | IsApprovedPipe}}</td> -->
-      <td><button class="btn btn-link"><i class="{{request.approved | IsApprovedPipe}}"></i></button></td>
+      <td><i class="{{request.approved | IsApprovedPipe}}"></i></td>
       <td>{{request.engineerAssigned}}</td>
       <td>{{request.dateCompleted}}</td>
     </tr>

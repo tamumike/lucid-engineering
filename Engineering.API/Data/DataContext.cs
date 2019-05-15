@@ -14,6 +14,14 @@ namespace Engineering.API.Data
             modelBuilder.Entity<Request>()
                 .Property(r => r.Approved)
                 .HasDefaultValue(false);
+
+            modelBuilder.Entity<Request>()
+                .Property(r => r.EngineerAssigned)
+                .HasDefaultValue(null);
+
+            modelBuilder.Entity<Request>()
+                .Property(r => r.DateCompleted)
+                .HasDefaultValue(null);
         }
     }
 }

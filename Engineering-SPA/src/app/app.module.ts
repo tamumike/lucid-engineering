@@ -1,13 +1,24 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
-import { BsDropdownModule } from 'ngx-bootstrap';
+import { BsDropdownModule, BsDatepickerModule } from 'ngx-bootstrap';
 
 import { AppComponent } from './app.component';
 import { NavComponent } from './nav/nav.component';
 import { RequestCreateComponent } from './request/request-create/request-create.component';
 import { RequestViewComponent } from './request/request-view/request-view.component';
 import { IsApprovedPipePipe } from './_pipes/IsApprovedPipe.pipe';
+import { RequestDetailComponent } from './request/request-detail/request-detail.component';
+import { HomeComponent } from './home/home.component';
+import { RouterModule } from '@angular/router';
+import { appRoutes } from './routes';
+import { RequestService } from './_services/request.service';
+import { RequestDetailResolver } from './_resolvers/request-detail.resolver';
+import { RequestViewResolver } from './_resolvers/request-view.resolver';
+import { StatusPipePipe } from './_pipes/StatusPipe.pipe';
+import { ApprovedBooleanPipe } from './_pipes/ApprovedBoolean.pipe';
+import { FormsModule } from '@angular/forms';
+import { AlertifyService } from './_services/alertify.service';
 
 @NgModule({
    declarations: [
@@ -15,14 +26,26 @@ import { IsApprovedPipePipe } from './_pipes/IsApprovedPipe.pipe';
       NavComponent,
       RequestCreateComponent,
       RequestViewComponent,
-      IsApprovedPipePipe
+      RequestDetailComponent,
+      IsApprovedPipePipe,
+      StatusPipePipe,
+      ApprovedBooleanPipe,
+      HomeComponent
    ],
    imports: [
       BrowserModule,
       HttpClientModule,
-      BsDropdownModule.forRoot()
+      BsDropdownModule.forRoot(),
+      RouterModule.forRoot(appRoutes),
+      BsDatepickerModule.forRoot(),
+      FormsModule
    ],
-   providers: [],
+   providers: [
+     RequestService,
+     RequestDetailResolver,
+     RequestViewResolver,
+     AlertifyService
+   ],
    bootstrap: [
       AppComponent
    ]

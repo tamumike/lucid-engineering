@@ -1,16 +1,16 @@
 /* tslint:disable:no-unused-variable */
 
 import { TestBed, async, inject } from '@angular/core/testing';
-import { RequestViewService } from './request-view.service';
+import { RequestService } from './request.service';
 
-describe('Service: RequestView', () => {
+describe('Service: Request', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [RequestViewService]
+      providers: [RequestService]
     });
   });
 
-  it('should ...', inject([RequestViewService], (service: RequestViewService) => {
+  it('should ...', inject([RequestService], (service: RequestService) => {
     expect(service).toBeTruthy();
   }));
 });
