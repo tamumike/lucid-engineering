@@ -1,5 +1,5 @@
-<nav class="navbar navbar-expand-md navbar-dark bg-primary">
-  <a class="navbar-brand" [routerLink]="['/home']">Engineering</a>
+<nav class="navbar navbar-expand-md navbar-dark bg-dark">
+  <a class="navbar-brand" [routerLink]="['/home']">Engineering Portal</a>
 
   <ul class="navbar-nav mr-auto ml-3">
     <div class="dropdown" dropdown>
@@ -8,10 +8,11 @@
         </a>
 
         <div class="dropdown-menu mt-3" *dropdownMenu>
-          <a class="dropdown-item" [routerLink]="['/request-create']">Create ESR</a>
-          <a class="dropdown-item" [routerLink]="['/requests']">View All ESR</a>
+          <a class="dropdown-item" [routerLink]="['/request-create']">Create Service Request</a>
+          <a class="dropdown-item" [routerLink]="['/requests']">View All Service Requests</a>
         </div>
       </div>
   </ul>
+  <p>{{username}}</p>
   <img src="../../assets/lucidlogoWhite.png" alt="" class="logo">
 </nav>

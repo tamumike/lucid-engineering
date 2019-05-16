@@ -1,12 +1,13 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Engineering.API.Helpers;
 using Engineering.API.Models;
 
 namespace Engineering.API.Data
 {
     public interface IRequestRepository
     {
-        Task<IEnumerable<Request>> GetRequests();
+        Task<PagedList<Request>> GetRequests(RequestParams requestParams);
         Task<Request> GetRequest(string ESR);
         Task<Request> SubmitRequest(Request request);
         Task<string> AssignESR(bool isApproved);

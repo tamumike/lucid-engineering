@@ -6,6 +6,7 @@ using System.DirectoryServices.ActiveDirectory;
 using Engineering.API.Models;
 using Microsoft.EntityFrameworkCore;
 using System.DirectoryServices.AccountManagement;
+using Engineering.API.Helpers;
 
 namespace Engineering.API.Data
 {
@@ -56,10 +57,34 @@ namespace Engineering.API.Data
             return request;
         }
 
-        public async Task<IEnumerable<Request>> GetRequests()
+        public async Task<PagedList<Request>> GetRequests(RequestParams requestParams)
         {
-            var requests = await _context.Requests.ToListAsync();
-            return requests;
+            var requests = _context.Requests.OrderBy(r => r.ESR).AsQueryable();
+
+            if (requestParams.Approved) {
+                requests = requests.Where(r => r.Approved == requestParams.Approved);
+            }
+
+            if (!string.IsNullOrEmpty(requestParams.Group)) {
+                requests = requests.Where(r => r.Group == requestParams.Group);
+            }
+            if (!string.IsNullOrEmpty(requestParams.LocationOfProject)) {
+                requests = requests.Where(r => r.LocationOfProject == requestParams.LocationOfProject);
+            }
+            if (!string.IsNullOrEmpty(requestParams.OrderBy))
+            {
+                switch (requestParams.OrderBy)
+                {
+                    case "dateInitiated":
+                        requests = requests.OrderByDescending(r => r.DateInitiated);
+                        break;
+                    default:
+                        requests = requests.OrderBy(r => r.ESR);
+                        break;
+                }
+            }
+
+            return await PagedList<Request>.CreateAsync(requests, requestParams.PageNumber, requestParams.PageSize);
         }
 
         public async Task<bool> IsApproved(string ESR)

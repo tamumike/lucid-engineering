@@ -33,6 +33,7 @@ namespace Engineering.API
             services.AddCors();
             services.AddAutoMapper();
             services.AddScoped<IRequestRepository, RequestRepository>();
+            services.AddScoped<IUserRepository, UserRepository>();
             services.AddAuthentication(HttpSysDefaults.AuthenticationScheme);
             services.AddHttpContextAccessor();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);

@@ -12,6 +12,7 @@ import { AlertifyService } from 'src/app/_services/alertify.service';
 export class RequestCreateComponent implements OnInit {
   baseUrl = environment.apiUrl;
   model: any = {};
+  request: any = {};
 
   constructor(private requestService: RequestService, private router: Router, private alertify: AlertifyService) { }
 
@@ -19,9 +20,11 @@ export class RequestCreateComponent implements OnInit {
   }
 
   submit() {
-    this.requestService.submit(this.model).subscribe(() => {
+    this.requestService.submit(this.model).subscribe(response => {
       this.alertify.success('Successfully created request.');
-      // this.router.navigate(['/requests/:' + this.model.esr]);
+      this.request = Object.assign({}, response);
+      // console.log(this.request);
+      this.router.navigate(['/requests/' + this.request.esr]);
     }, error => {
       this.alertify.error(error);
     });

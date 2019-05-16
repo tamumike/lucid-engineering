@@ -11,6 +11,7 @@ namespace Engineering.API.Helpers
             CreateMap<Request, RequestsForListDto>();
             CreateMap<Request, RequestForDetailedDto>();
             CreateMap<RequestForApprovalDto, Request>();
+            CreateMap<RequestForSubmittalDto, Request>();
         }
     }
 }

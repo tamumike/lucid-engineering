@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Engineering.API.Data;
 using Engineering.API.Dtos;
+using Engineering.API.Helpers;
 using Engineering.API.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -29,14 +30,19 @@ namespace Engineering.API.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetRequests()
+        public async Task<IActionResult> GetRequests([FromQuery]RequestParams requestParams)
         {
-            var requests = await _repo.GetRequests();
+            var requests = await _repo.GetRequests(requestParams);
+
             var requestsToReturn = _mapper.Map<IEnumerable<RequestsForListDto>>(requests);
+
+            Response.AddPagination(requests.CurrentPage, requests.PageSize, 
+                requests.TotalCount, requests.TotalPages);
+
             return Ok(requestsToReturn);
         }
 
-        [HttpGet("{ESR}")]
+        [HttpGet("{ESR}", Name = "GetRequest")]
         public async Task<IActionResult> GetRequest(string ESR)
         {
             var request = await _repo.GetRequest(ESR);
@@ -57,25 +63,18 @@ namespace Engineering.API.Controllers
         {
             var newESR = await _repo.AssignESR(false);
 
-            var requestToPost = new Request
-            {
-                ESR = newESR.ToString(),
-                DateInitiated = DateTime.Now.Date,
-                RequestedDateForCompletion = requestForSubmittalDto.RequestedDateForCompletion,
-                InitiatedBy = "mlinden",
-                Group = requestForSubmittalDto.Group,
-                LocationOfProject = requestForSubmittalDto.LocationOfProject,
-                Description = requestForSubmittalDto.Description,
-                Approved = false,
-                EngineerAssigned = null,
-                DateCompleted = null
-            };
+            var requestToPost = _mapper.Map<Request>(requestForSubmittalDto);
 
             if (requestToPost.RequestedDateForCompletion <= DateTime.Now.Date)
-                return BadRequest("The completion date is invalid.");
+                return BadRequest("The completion date is invalid."); //CHECK THIS OUT
+
+            requestToPost.ESR = newESR.ToString();
 
             var postedRequest = await _repo.SubmitRequest(requestToPost);
-            return StatusCode(201);
+
+            var requestToReturn = _mapper.Map<RequestForDetailedDto>(postedRequest);
+
+            return CreatedAtRoute("GetRequest", new {controller = "requests", ESR = postedRequest.ESR}, requestToReturn);
         }
 
         [HttpPut("{ESR}")]

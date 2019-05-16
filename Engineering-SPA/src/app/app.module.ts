@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
-import { BsDropdownModule, BsDatepickerModule } from 'ngx-bootstrap';
+import { BsDropdownModule, BsDatepickerModule, PaginationModule, ButtonsModule } from 'ngx-bootstrap';
 
 import { AppComponent } from './app.component';
 import { NavComponent } from './nav/nav.component';
@@ -19,6 +19,7 @@ import { StatusPipePipe } from './_pipes/StatusPipe.pipe';
 import { ApprovedBooleanPipe } from './_pipes/ApprovedBoolean.pipe';
 import { FormsModule } from '@angular/forms';
 import { AlertifyService } from './_services/alertify.service';
+import { UserService } from './_services/user.service';
 
 @NgModule({
    declarations: [
@@ -38,13 +39,16 @@ import { AlertifyService } from './_services/alertify.service';
       BsDropdownModule.forRoot(),
       RouterModule.forRoot(appRoutes),
       BsDatepickerModule.forRoot(),
-      FormsModule
+      FormsModule,
+      PaginationModule.forRoot(),
+      ButtonsModule.forRoot()
    ],
    providers: [
      RequestService,
      RequestDetailResolver,
      RequestViewResolver,
-     AlertifyService
+     AlertifyService,
+     UserService
    ],
    bootstrap: [
       AppComponent

@@ -1,5 +1,6 @@
 using System;
 using System.ComponentModel.DataAnnotations;
+using Engineering.API.Data;
 
 namespace Engineering.API.Dtos
 {
@@ -19,9 +20,16 @@ namespace Engineering.API.Dtos
         public string LocationOfProject { get; set; }
         [Required]
         public string Description { get; set; }
-        [Required]
         public bool Approved { get; set; }
         public string EngineerAssigned { get; set; }
         public DateTime? DateCompleted { get; set; }
+        
+        public RequestForSubmittalDto()
+        {
+            DateCompleted = null;
+            DateInitiated = DateTime.Now.Date;
+            Approved = false;
+            EngineerAssigned = null;
+        }
     }
 }
