@@ -5,31 +5,27 @@
     <div class="col-xs-12 col-12 col-md-4 p-4 form-group border">
       <label class="font-weight-bold" for="requestedDateForCompletion">Requested Date For Completion</label>
       <input type="text"
+              autocomplete="off"
               required
               name="requestedDateForCompletion"
               [(ngModel)]="model.requestedDateForCompletion"
               id="requestedDateForCompletion"
               class="form-control mb-3"
               bsDatepicker
-              [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD', containerClass: 'theme-default' }">
+              [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD', containerClass: 'theme-default', adaptivePosition: true }">
 
         <label class="font-weight-bold" for="group">Group</label>
         <select class="form-control mb-3" id="group" required name="group" [(ngModel)]="model.group">
-          <option>Commercial</option>
-          <option>Operations</option>
-          <option>Management</option>
+          <option *ngFor="let group of groupsList">{{group}}</option>
         </select>
 
         <label class="font-weight-bold" for="locationOfProject">Location of Project</label>
         <select class="form-control mb-3" id="locationOfProject" required name="locationOfProject" [(ngModel)]="model.locationOfProject">
-          <option>Plant</option>
-          <option>Pipeline</option>
-          <option>Compressor Station</option>
-          <option>Other</option>
+          <option *ngFor="let location of locationsList">{{location}}</option>
         </select>
 
         <label for="initiatedBy" class="font-weight-bold">Initiated By</label>
-        <input type="text" class="form-control mb-3" required name="initiatedBy" [(ngModel)]="model.initiatedBy">
+        <input type="text" class="form-control mb-3" readonly required name="initiatedBy" [(ngModel)]="model.initiatedBy" value="{{username}}">
 
         <label class="font-weight-bold" for="description">Description</label>
         <textarea class="form-control mb-3" id="description" rows="5" required name="description" [(ngModel)]="model.description"></textarea>

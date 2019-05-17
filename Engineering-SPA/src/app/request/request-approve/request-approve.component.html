@@ -1,0 +1,67 @@
+<div class="container mt-5 w-75">
+    <div class="container p-0">
+      <div class="row">
+        <div class="col-sm">
+          <button type="button" class="btn btn-dark mb-2" [routerLink]="['/requests', request.esr]"><i class="fa fa-arrow-circle-left mr-2"></i>Back</button>
+        </div>
+        <div class="col-sm">
+        </div>
+        <div class="col-sm d-flex flex-row-reverse">
+        </div>
+      </div>
+    </div>
+    <div class="card text-center border-dark">
+        <div class="card-header">
+            <h3 class="card-title font-weight-bolder mb-0">{{request.esr}}</h3>
+        </div>
+        <form #approvalForm="ngForm" (ngSubmit)="approve()">
+          <div class="card-body form-group">
+            <div class="container p-3 text-left">
+              <label for="group" class="card-subtitle font-weight-bold">Group</label>
+              <select class="form-control p-0" style="width: 130px" id="group" [(ngModel)]="request.group" name="group">
+                  <option *ngFor="let group of groupsList" [attr.selected]="request.group">
+                    {{group}}
+                  </option>
+              </select>
+            </div>
+            <div class="container p-3 text-left">
+              <label class="card-subtitle font-weight-bold" for="locationOfProject">Location of Project</label>
+              <select name="locationOfProject" id="locationOfProject" class="form-control p-0" style="width: 130px" [(ngModel)]="request.locationOfProject">
+                <option *ngFor="let location of locationsList" [attr.selected]="request.locationOfProject">
+                  {{location}}
+                </option>
+              </select>
+            </div>
+            <div class="container p-3 text-left">
+              <label class="font-weight-bold" for="description">Description</label>
+              <textarea class="form-control mb-3" id="description" rows="3" required name="description" [(ngModel)]="request.description"></textarea>
+            </div>
+            <div class="container p-3 text-left">
+              <label for="engineerAssigned" class="card-subtitle font-weight-bold">Engineer Assigned</label>
+              <select name="engineersAssigned" id="engineerAssigned" class="form-control p-0" style="width: 130px" [(ngModel)]="request.engineerAssigned">
+                <option [ngValue]="null"></option>
+                <option *ngFor="let engineer of engineersList">
+                  {{engineer}}
+                </option>
+              </select>
+            </div>
+            <div class="container p-3 text-left">
+              <label class="font-weight-bold" for="requestedDateForCompletion">Requested Date For Completion</label>
+              <input type="text"
+                      required
+                      name="requestedDateForCompletion"
+                      [(ngModel)]="request.requestedDateForCompletion"
+                      id="requestedDateForCompletion"
+                      class="form-control mb-3"
+                      bsDatepicker
+                      style="width: 130px"
+                      [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD', containerClass: 'theme-default' }">
+            </div>
+            <button type="submit" class="btn btn-success">Approve</button>
+          </div>
+        </form>
+        <div class="card-footer p-2 font-weight-bold">
+          <p class="mb-0 {{request.approved | StatusPipe}}">Pending Approval</p>
+        </div>
+      </div>
+  </div>

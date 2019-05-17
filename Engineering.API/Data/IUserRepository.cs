@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.DirectoryServices.AccountManagement;
 using System.Threading.Tasks;
 
@@ -9,5 +10,6 @@ namespace Engineering.API.Data
          PrincipalContext GetDomain();
          bool IsAuthorizedToCreateRequest(UserPrincipal username, PrincipalContext ctx);
          bool IsAuthorizedToApproveRequest(string username);
+         IEnumerable<string> GetMembersOfGroup();
     }
 }

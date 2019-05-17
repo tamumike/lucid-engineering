@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { PaginatedResult } from '../_models/pagination';
 import { map } from 'rxjs/operators';
 import { Request } from '../_models/request';
+import { AlertifyService } from './alertify.service';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,7 @@ import { Request } from '../_models/request';
 export class RequestService {
   baseUrl = environment.apiUrl;
 
-constructor(private http: HttpClient) { }
+constructor(private http: HttpClient, private alertify: AlertifyService) { }
 
 getRequests(page?, itemsPerPage?, requestParams?): Observable<PaginatedResult<Request[]>> {
 
@@ -29,6 +30,8 @@ getRequests(page?, itemsPerPage?, requestParams?): Observable<PaginatedResult<Re
     params = params.append('group', requestParams.group);
     params = params.append('approved', requestParams.approved);
     params = params.append('locationOfProject', requestParams.locationOfProject);
+    params = params.append('engineerAssigned', requestParams.engineerAssigned);
+    params = params.append('esr', requestParams.esr);
     params = params.append('orderBy', requestParams.orderBy);
   }
 
@@ -50,6 +53,10 @@ getRequest(esr: string): Observable<Request> {
 
 submit(request: Request) {
   return this.http.post(this.baseUrl + 'requests/submit', request);
+}
+
+approve(request: Request) {
+  return this.http.put(this.baseUrl + 'requests/' + request.esr, request);
 }
 
 }

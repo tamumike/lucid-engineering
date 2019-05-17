@@ -15,6 +15,8 @@ namespace Engineering.API.Helpers
         public bool Approved { get; set; }
         public string LocationOfProject { get; set; }
         public string OrderBy { get; set; }
+        public string EngineerAssigned { get; set; }
+        public string ESR { get; set; }
         
     }
 }

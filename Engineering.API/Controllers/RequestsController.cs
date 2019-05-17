@@ -87,10 +87,10 @@ namespace Engineering.API.Controllers
 
             requestFromRepo.ESR = await _repo.AssignESR(true);
 
-            _mapper.Map(requestForApprovalDto, requestFromRepo);
+            var requestToReturn = _mapper.Map(requestForApprovalDto, requestFromRepo);
 
             if (await _repo.SaveAll())
-                return NoContent();
+                return CreatedAtRoute("GetRequest", new {controller = "requests", ESR = requestFromRepo.ESR}, requestToReturn);
 
             throw new Exception($"Approving request {ESR} failed on save.");
         }

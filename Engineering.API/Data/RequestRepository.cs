@@ -71,12 +71,21 @@ namespace Engineering.API.Data
             if (!string.IsNullOrEmpty(requestParams.LocationOfProject)) {
                 requests = requests.Where(r => r.LocationOfProject == requestParams.LocationOfProject);
             }
+            if (!string.IsNullOrEmpty(requestParams.EngineerAssigned)) {
+                requests = requests.Where(r => r.EngineerAssigned == requestParams.EngineerAssigned);
+            }
+            if (!string.IsNullOrEmpty(requestParams.ESR)) {
+                requests = requests.Where(r => r.ESR == requestParams.ESR);
+            }
             if (!string.IsNullOrEmpty(requestParams.OrderBy))
             {
                 switch (requestParams.OrderBy)
                 {
                     case "dateInitiated":
                         requests = requests.OrderByDescending(r => r.DateInitiated);
+                        break;
+                    case "approved":
+                        requests = requests.OrderBy(r => r.Approved);
                         break;
                     default:
                         requests = requests.OrderBy(r => r.ESR);

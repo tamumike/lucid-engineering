@@ -20,6 +20,8 @@ import { ApprovedBooleanPipe } from './_pipes/ApprovedBoolean.pipe';
 import { FormsModule } from '@angular/forms';
 import { AlertifyService } from './_services/alertify.service';
 import { UserService } from './_services/user.service';
+import { RequestApproveComponent } from './request/request-approve/request-approve.component';
+import { RequestApproveResolver } from './_resolvers/request-approve.resolver';
 
 @NgModule({
    declarations: [
@@ -31,7 +33,8 @@ import { UserService } from './_services/user.service';
       IsApprovedPipePipe,
       StatusPipePipe,
       ApprovedBooleanPipe,
-      HomeComponent
+      HomeComponent,
+      RequestApproveComponent
    ],
    imports: [
       BrowserModule,
@@ -47,6 +50,7 @@ import { UserService } from './_services/user.service';
      RequestService,
      RequestDetailResolver,
      RequestViewResolver,
+     RequestApproveResolver,
      AlertifyService,
      UserService
    ],

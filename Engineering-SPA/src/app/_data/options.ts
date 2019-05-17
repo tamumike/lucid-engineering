@@ -10,5 +10,12 @@ export const options = {
     'Pipeline',
     'Compressor Station',
     'Other'
+  ],
+  engineers: [
+    'Daffy Duck',
+    'Bugs Bunny',
+    'Porky Pig',
+    'Donald Duck',
+    'Mickey Mouse'
   ]
 }

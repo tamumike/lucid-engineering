@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-md navbar-dark bg-dark">
+<nav class="navbar navbar-expand-md navbar-dark bg-dark p-2">
   <a class="navbar-brand" [routerLink]="['/home']">Engineering Portal</a>
 
   <ul class="navbar-nav mr-auto ml-3">
@@ -13,6 +13,20 @@
         </div>
       </div>
   </ul>
-  <p>{{username}}</p>
-  <img src="../../assets/lucidlogoWhite.png" alt="" class="logo">
+  <!-- <div class="container d-flex text-right justify-content-right">
+    <p class="mr-3 font-weight-bold">{{username}}</p>
+  </div>
+  <img src="../../assets/lucidlogoWhite.png" alt="" class="logo"> -->
+  <div class="container d-flex flex-row-reverse p-0 m-0">
+    <div class="row">
+      <div class="col-sm">
+      </div>
+      <div class="col-sm">
+      </div>
+      <div class="col-sm">
+        <img src="../../assets/lucidlogoWhite.png" alt="" class="logo">
+        <p class="font-weight-bold mt-2">Welcome, {{username}}</p>
+      </div>
+    </div>
+  </div>
 </nav>
