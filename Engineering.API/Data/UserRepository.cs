@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.DirectoryServices.AccountManagement;
 using System.DirectoryServices.ActiveDirectory;
@@ -9,8 +10,8 @@ namespace Engineering.API.Data
     {
         private string _domain = "LUCIDENERGY";
         private string _group = "Engineer_ESR";
-        // private string _approver = "Mark Lane";
-        private string _approver = "Michael Linden";
+        // private string _approver = "mlane";
+        private string _approver = "mlinden";
         public UserRepository()
         {
         }
@@ -20,24 +21,30 @@ namespace Engineering.API.Data
             return ctx;
         }
 
-        public IEnumerable<string> GetMembersOfGroup()
+        public IEnumerable<KeyValuePair<string, string>> GetMembersOfGroup()
         {
             PrincipalContext ctx = new PrincipalContext(ContextType.Domain, _domain);
             GroupPrincipal grp = GroupPrincipal.FindByIdentity(ctx, _group);
             var users = grp.GetMembers(true);
-            List<string> allUsers = new List<string>();
+            List<KeyValuePair<string, string>> allUsers = new List<KeyValuePair<string, string>>();
 
             foreach(UserPrincipal user in users) {
-                allUsers.Add(user.DisplayName);
+                allUsers.Add(new KeyValuePair<string, string>(user.Name, user.SamAccountName));
             }
 
             return allUsers;
         }
 
-        public UserPrincipal GetUsername()
+        public string GetUsername()
         {
-            UserPrincipal username = UserPrincipal.Current;
-            return username;
+            string user = Environment.UserName;
+            return user;
+        }
+
+        public UserPrincipal GetUserPrincipal()
+        {
+            UserPrincipal user = UserPrincipal.Current;
+            return user;
         }
 
         public bool IsAuthorizedToApproveRequest(string username)

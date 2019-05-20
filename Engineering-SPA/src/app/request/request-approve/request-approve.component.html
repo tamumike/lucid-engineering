@@ -40,8 +40,8 @@
               <label for="engineerAssigned" class="card-subtitle font-weight-bold">Engineer Assigned</label>
               <select name="engineersAssigned" id="engineerAssigned" class="form-control p-0" style="width: 130px" [(ngModel)]="request.engineerAssigned">
                 <option [ngValue]="null"></option>
-                <option *ngFor="let engineer of engineersList">
-                  {{engineer}}
+                <option *ngFor="let engineer of engineersList" [value]="engineer.value">
+                  {{engineer.key}}
                 </option>
               </select>
             </div>

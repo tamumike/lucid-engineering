@@ -8,18 +8,10 @@ import { HttpClient } from '@angular/common/http';
   styleUrls: ['./nav.component.css']
 })
 export class NavComponent implements OnInit {
-  username: any;
-
   constructor(private userService: UserService) { }
 
   ngOnInit() {
-    this.getUser();
   }
 
-  getUser() {
-    this.userService.getUsername().subscribe(username => {
-      this.username = username;
-    });
-  }
 
 }

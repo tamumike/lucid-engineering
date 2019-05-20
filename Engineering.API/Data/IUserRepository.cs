@@ -6,10 +6,11 @@ namespace Engineering.API.Data
 {
     public interface IUserRepository
     {
-         UserPrincipal GetUsername();
+         string GetUsername();
          PrincipalContext GetDomain();
          bool IsAuthorizedToCreateRequest(UserPrincipal username, PrincipalContext ctx);
          bool IsAuthorizedToApproveRequest(string username);
-         IEnumerable<string> GetMembersOfGroup();
+         IEnumerable<KeyValuePair<string, string>> GetMembersOfGroup();
+         UserPrincipal GetUserPrincipal();
     }
 }

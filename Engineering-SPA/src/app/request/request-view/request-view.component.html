@@ -18,8 +18,8 @@
           </select>
           <label for="engineerAssigned" class="font-weight-bold">Engineeer:</label>
           <select class="form-control ml-1 mr-3" style="width: 130px" id="engineerAssigned" [(ngModel)]="requestParams.engineerAssigned" name="engineerAssigned">
-            <option *ngFor="let engineer of engineersList" [value]="engineer">
-              {{engineer}}
+            <option *ngFor="let engineer of engineersList" [value]="engineer.value">
+              {{engineer.key}}
             </option>
           </select>
           <div class="form-check ml-2">

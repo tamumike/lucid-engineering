@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Engineering.API.Data;
 using Microsoft.AspNetCore.Mvc;
@@ -18,21 +19,22 @@ namespace Engineering.API.Controllers
     [HttpGet("username")]
     public ActionResult<string> GetUsername()
     {
-        var username = _repo.GetUsername();
-        return username.ToString();
+        var user = _repo.GetUsername();
+        return user;
     }
 
     [HttpGet("authorizedtocreate")]
     public bool IsAuthorizedToCreateRequest()
     {
-        var username = _repo.GetUsername();
+        var username = _repo.GetUserPrincipal();
         var domain = _repo.GetDomain();
 
         return _repo.IsAuthorizedToCreateRequest(username, domain);
+        
     }
 
     [HttpGet("groupmembers")]
-    public IEnumerable<string> GetMembersOfGroup() {
+    public IEnumerable<KeyValuePair<string, string>> GetMembersOfGroup() {
 
         var members = _repo.GetMembersOfGroup();
 

@@ -8,7 +8,8 @@
 
       </div>
       <div class="col-sm d-flex flex-row-reverse">
-        <button *ngIf="authorizedToApprove && !approved" type="button" class="btn btn-success mb-2" [routerLink]="['/request-approve', request.esr]"><i class="fa fa-check-circle mr-2"></i>Approve</button>
+          <!-- *ngIf="authorizedToApprove && !approved" -->
+        <button *ngIf="!approved" type="button" class="btn btn-success mb-2" [routerLink]="['/request-approve', request.esr]"><i class="fa fa-check-circle mr-2"></i>Approve</button>
       </div>
     </div>
   </div>
