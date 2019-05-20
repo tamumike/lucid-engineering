@@ -19,8 +19,8 @@ namespace Engineering.API.Controllers
     [HttpGet("username")]
     public ActionResult<string> GetUsername()
     {
-        var user = _repo.GetUsername();
-        return user;
+        // var user = _repo.GetUsername();
+        return Environment.UserName;
     }
 
     [HttpGet("authorizedtocreate")]
