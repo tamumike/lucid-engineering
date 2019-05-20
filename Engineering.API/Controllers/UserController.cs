@@ -24,7 +24,7 @@ namespace Engineering.API.Controllers
         {
             // var user = _repo.GetUsername();
             var user = _httpContextAccessor.HttpContext.User.Identity.Name;
-            return Environment.UserName;
+            return user;
         }
 
         [HttpGet("authorizedtocreate")]
