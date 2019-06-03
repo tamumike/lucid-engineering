@@ -16,6 +16,7 @@ namespace Engineering.API.Dtos
         public string LocationOfProject { get; set; }
         public bool Approved { get; set; }
         public string EngineerAssigned { get; set; }
+        public string Status { get; set; }
         // public DateTime? DateCompleted { get; set; }
     }
 }

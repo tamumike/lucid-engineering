@@ -11,11 +11,10 @@ export const options = {
     'Compressor Station',
     'Other'
   ],
-  engineers: [
-    'Daffy Duck',
-    'Bugs Bunny',
-    'Porky Pig',
-    'Donald Duck',
-    'Mickey Mouse'
+  statuses: [
+    'Started',
+    'In Queue',
+    'Near Completion',
+    'Under Review'
   ]
-}
+};

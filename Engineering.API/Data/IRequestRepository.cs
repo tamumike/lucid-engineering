@@ -9,6 +9,7 @@ namespace Engineering.API.Data
     {
         Task<PagedList<Request>> GetRequests(RequestParams requestParams);
         Task<Request> GetRequest(string ESR);
+        Task<PagedList<Request>> GetAssignedRequests(RequestParams requestParams);
         Task<Request> SubmitRequest(Request request);
         Task<string> AssignESR(bool isApproved);
         bool IsAuthorizedMember();

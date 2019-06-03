@@ -51,12 +51,42 @@ getRequest(esr: string): Observable<Request> {
   return this.http.get<Request>(this.baseUrl + 'requests/' + esr);
 }
 
+getAssignedRequests(page?, itemsPerPage?, requestParams?): Observable<PaginatedResult<Request[]>> {
+  const paginatedResult: PaginatedResult<Request[]> = new PaginatedResult<Request[]>();
+
+  let params = new HttpParams();
+
+  if (page != null && itemsPerPage != null) {
+    params = params.append('pageNumber', page);
+    params = params.append('pageSize', itemsPerPage);
+  }
+
+  if (requestParams != null) {
+    params = params.append('user', requestParams.user);
+  }
+
+  return this.http.get<Request[]>(this.baseUrl + 'requests/assigned', { observe: 'response', params} )
+    .pipe(
+      map(response => {
+        paginatedResult.result = response.body;
+        if (response.headers.get('Pagination') != null) {
+          paginatedResult.pagination = JSON.parse(response.headers.get('Pagination'));
+        }
+        return paginatedResult;
+      })
+    );
+}
+
 submit(request: Request) {
   return this.http.post(this.baseUrl + 'requests/submit', request);
 }
 
 approve(request: Request) {
   return this.http.put(this.baseUrl + 'requests/' + request.esr, request);
+}
+
+changeStatus(request: Request) {
+  return this.http.put(this.baseUrl + 'requests/status/' + request.esr, request);
 }
 
 }

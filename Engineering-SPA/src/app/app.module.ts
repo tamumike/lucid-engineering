@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
-import { BsDropdownModule, BsDatepickerModule, PaginationModule, ButtonsModule } from 'ngx-bootstrap';
+import { BsDropdownModule, BsDatepickerModule, PaginationModule, ButtonsModule, TabsModule, ModalModule } from 'ngx-bootstrap';
 
 import { AppComponent } from './app.component';
 import { NavComponent } from './nav/nav.component';
@@ -22,6 +22,10 @@ import { AlertifyService } from './_services/alertify.service';
 import { UserService } from './_services/user.service';
 import { RequestApproveComponent } from './request/request-approve/request-approve.component';
 import { RequestApproveResolver } from './_resolvers/request-approve.resolver';
+import { RequestAssignedComponent } from './request/request-assigned/request-assigned.component';
+import { RequestAssignedResolver } from './_resolvers/request-assigned.resolver';
+import { AuthGuard } from './_guards/auth.guard';
+import { ErrorInterceptorProvider } from './_services/error.interceptor';
 
 @NgModule({
    declarations: [
@@ -34,7 +38,8 @@ import { RequestApproveResolver } from './_resolvers/request-approve.resolver';
       StatusPipePipe,
       ApprovedBooleanPipe,
       HomeComponent,
-      RequestApproveComponent
+      RequestApproveComponent,
+      RequestAssignedComponent
    ],
    imports: [
       BrowserModule,
@@ -44,15 +49,20 @@ import { RequestApproveResolver } from './_resolvers/request-approve.resolver';
       BsDatepickerModule.forRoot(),
       FormsModule,
       PaginationModule.forRoot(),
-      ButtonsModule.forRoot()
+      ButtonsModule.forRoot(),
+      TabsModule.forRoot(),
+      ModalModule.forRoot()
    ],
    providers: [
      RequestService,
      RequestDetailResolver,
      RequestViewResolver,
      RequestApproveResolver,
+     RequestAssignedResolver,
      AlertifyService,
-     UserService
+     UserService,
+     AuthGuard,
+     ErrorInterceptorProvider
    ],
    bootstrap: [
       AppComponent

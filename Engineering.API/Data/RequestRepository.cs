@@ -51,6 +51,16 @@ namespace Engineering.API.Data
             return lastTwoDigitsOfYear + "-" + zerosToPad + newESR + suffix;
         }
 
+        public async Task<PagedList<Request>> GetAssignedRequests(RequestParams requestParams)
+        {
+            var requests = _context.Requests.OrderBy(r => r.ESR).AsQueryable();
+
+            if (!string.IsNullOrEmpty(requestParams.User)) {
+                requests = requests.Where(r => r.EngineerAssigned == requestParams.User);
+            }
+            return await PagedList<Request>.CreateAsync(requests, requestParams.PageNumber, requestParams.PageSize);
+        }
+
         public async Task<Request> GetRequest(string ESR)
         {
             var request = await _context.Requests.FirstOrDefaultAsync(r => r.ESR == ESR);

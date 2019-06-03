@@ -12,8 +12,9 @@ namespace Engineering.API.Controllers
     public class UserController : ControllerBase
     {
         private readonly IUserRepository _repo;
-        private readonly HttpContextAccessor _httpContextAccessor;
-        public UserController(IUserRepository repo, HttpContextAccessor httpContextAccessor)
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        private string _user;
+        public UserController(IUserRepository repo, IHttpContextAccessor httpContextAccessor)
         {
             _httpContextAccessor = httpContextAccessor;
             _repo = repo;
@@ -22,8 +23,9 @@ namespace Engineering.API.Controllers
         [HttpGet("username")]
         public ActionResult<string> GetUsername()
         {
-            // var user = _repo.GetUsername();
-            var user = _httpContextAccessor.HttpContext.User.Identity.Name;
+            var user = _repo.GetUsername();
+            // _user = _httpContextAccessor.HttpContext.User.Identity.Name;
+            // _user = _user.Replace("LUCIDENERGY\\", "");
             return user;
         }
 

@@ -8,5 +8,6 @@ export interface Request {
   description: string;
   approved?: boolean;
   engineerAssigned?: string;
+  status?: string;
   dateCompleted?: Date;
 }

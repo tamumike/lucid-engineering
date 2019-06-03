@@ -17,6 +17,7 @@ namespace Engineering.API.Helpers
         public string OrderBy { get; set; }
         public string EngineerAssigned { get; set; }
         public string ESR { get; set; }
+        public string User { get; set; }
         
     }
 }

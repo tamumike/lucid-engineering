@@ -15,6 +15,7 @@ namespace Engineering.API.Models
         public string LocationOfProject { get; set; }
         public string Description { get; set; }
         public bool Approved { get; set; }
+        public string Status { get; set; }
         public string EngineerAssigned { get; set; }
         public DateTime? DateCompleted { get; set; }
     }

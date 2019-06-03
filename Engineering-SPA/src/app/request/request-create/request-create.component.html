@@ -1,8 +1,9 @@
-<div class="container mt-3 p-3">
-  <h3>Create a Service Request</h3>
+<!-- <div class="container p-3"> -->
   <form #submitForm="ngForm" (ngSubmit)="submit()">
 
-    <div class="col-xs-12 col-12 col-md-4 p-4 form-group border">
+    <div class="form-group p-4">
+      <h3 class="mb-5 mt-2 font-weight-bold">Create a Service Request</h3>
+      <div class="border p-4 mb-2">
       <label class="font-weight-bold" for="requestedDateForCompletion">Requested Date For Completion</label>
       <input type="text"
               autocomplete="off"
@@ -29,9 +30,10 @@
 
         <label class="font-weight-bold" for="description">Description</label>
         <textarea class="form-control mb-3" id="description" rows="5" required name="description" [(ngModel)]="model.description"></textarea>
-
       </div>
-      <input class="btn btn-sm btn-success mr-2" type="submit" value="Submit">
-      <button type="button" class="btn btn-sm btn-danger" [routerLink]="['/requests']">Cancel</button>
+        <input class="btn btn-sm btn-success mr-2" type="submit" value="Submit">
+        <!-- <button type="button" class="btn btn-sm btn-danger" [routerLink]="['/requests']">Cancel</button> -->
+      </div>
+
   </form>
-</div>
+<!-- </div> -->

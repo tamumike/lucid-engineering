@@ -23,6 +23,7 @@ export class RequestViewComponent implements OnInit {
     {value: 'approved', display: 'Approved'}];
   engineersList: any;
   authorizedToCreate: any;
+  filterMode = false;
 
   constructor(private requestService: RequestService, private route: ActivatedRoute,
     private userService: UserService, private alertify: AlertifyService) { }
@@ -82,5 +83,9 @@ export class RequestViewComponent implements OnInit {
     }, error => {
       console.log(error);
     });
+  }
+
+  toggleFilterMode() {
+    this.filterMode = !this.filterMode;
   }
 }

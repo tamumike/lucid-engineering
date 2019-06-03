@@ -42,6 +42,19 @@ namespace Engineering.API.Controllers
             return Ok(requestsToReturn);
         }
 
+        [HttpGet("assigned")]
+        public async Task<IActionResult> GetAssignedRequests([FromQuery]RequestParams requestParams)
+        {
+            var requests = await _repo.GetAssignedRequests(requestParams);
+
+            var requestsToReturn = _mapper.Map<IEnumerable<RequestsForListDto>>(requests);
+
+            Response.AddPagination(requests.CurrentPage, requests.PageSize, 
+                requests.TotalCount, requests.TotalPages);
+
+            return Ok(requestsToReturn);
+        }
+
         [HttpGet("{ESR}", Name = "GetRequest")]
         public async Task<IActionResult> GetRequest(string ESR)
         {
@@ -93,6 +106,19 @@ namespace Engineering.API.Controllers
                 return CreatedAtRoute("GetRequest", new {controller = "requests", ESR = requestFromRepo.ESR}, requestToReturn);
 
             throw new Exception($"Approving request {ESR} failed on save.");
+        }
+
+        [HttpPut("status/{ESR}")]
+        public async Task<IActionResult> UpdateStatus(string ESR, RequestForStatusChangeDto requestForStatusChangeDto)
+        {
+            var requestFromRepo = await _repo.GetRequest(ESR);
+
+            var requestToReturn = _mapper.Map(requestForStatusChangeDto, requestFromRepo);
+
+            if (await _repo.SaveAll())
+                return Ok(requestFromRepo);
+
+            throw new Exception($"Error updating the status");
         }
     }
 }
