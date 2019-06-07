@@ -15,7 +15,7 @@ import { AlertifyService } from 'src/app/_services/alertify.service';
 export class RequestViewComponent implements OnInit {
   requests: Request[];
   pagination: Pagination;
-  groups = options.groups;
+  departments = options.departments;
   locations = options.locations;
   requestParams: any = {};
   orderList = [{value: 'esr', display: 'ESR'},
@@ -54,7 +54,7 @@ export class RequestViewComponent implements OnInit {
   }
 
   resetFilters() {
-    this.requestParams.group = '';
+    this.requestParams.department = '';
     this.requestParams.esr = '';
     this.requestParams.approved = false;
     this.requestParams.locationOfProject = '';

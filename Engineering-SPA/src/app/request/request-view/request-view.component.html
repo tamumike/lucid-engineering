@@ -5,10 +5,10 @@
         <div class="form-group px-2">
           <label for="filterESR" class="font-weight-bold">ESR:</label>
           <input type="text" id="filterESR" class="form-control ml-1 mr-3" style="width: 80px" name="esr" [(ngModel)]="requestParams.esr">
-          <label for="group" class="font-weight-bold">Group: </label>
-          <select class="form-control ml-1 mr-3" style="width: 130px" id="group" [(ngModel)]="requestParams.group" name="group">
-            <option *ngFor="let group of groups" [value]="group">
-              {{group}}
+          <label for="group" class="font-weight-bold">Dept: </label>
+          <select class="form-control ml-1 mr-3" style="width: 130px" id="group" [(ngModel)]="requestParams.department" name="department">
+            <option *ngFor="let department of departments" [value]="department">
+              {{department}}
             </option>
           </select>
           <label for="locationOfProject" class="font-weight-bold">Location:</label>
@@ -43,7 +43,7 @@
       <th scope="col">Date Initiated</th>
       <th scope="col">Requested Completion Date</th>
       <th scope="col">Initiated By</th>
-      <th scope="col">Group</th>
+      <th scope="col">Department</th>
       <th scope="col">Location</th>
       <th scope="col">Approved</th>
       <th scope="col">Engineer</th>
@@ -58,7 +58,7 @@
       <td>{{request.dateInitiated | date}}</td>
       <td>{{request.requestedDateForCompletion | date}}</td>
       <td>{{request.initiatedBy}}</td>
-      <td>{{request.group}}</td>
+      <td>{{request.department}}</td>
       <td>{{request.locationOfProject}}</td>
       <td><i class="{{request.approved | IsApprovedPipe}}"></i></td>
       <td>{{request.engineerAssigned}}</td>

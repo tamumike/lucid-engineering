@@ -3,9 +3,10 @@ export interface Request {
   dateInitiated?: Date;
   requestedDateForCompletion: Date;
   initiatedBy?: string;
-  group: string;
+  department: string;
   locationOfProject: string;
   description: string;
+  priority: number;
   approved?: boolean;
   engineerAssigned?: string;
   status?: string;

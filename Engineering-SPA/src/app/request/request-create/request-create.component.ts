@@ -15,7 +15,7 @@ export class RequestCreateComponent implements OnInit {
   baseUrl = environment.apiUrl;
   model: any = {};
   request: any = {};
-  groupsList = options.groups;
+  departments = options.departments;
   locationsList = options.locations;
   username: string;
 
@@ -24,11 +24,21 @@ export class RequestCreateComponent implements OnInit {
 
   ngOnInit() {
     this.getUsername();
+    this.getRole();
   }
 
   getUsername() {
-    this.userService.getUsername().subscribe(username => {
-      this.username = username;
+    this.userService.getUsername().subscribe(() => {
+      // this.alertify.success('Welcome!');
+      this.username = localStorage.getItem('username');
+    }, error => {
+      this.alertify.error(error);
+    });
+  }
+
+  getRole() {
+    this.userService.isAuthorizedToApprove().subscribe(response => {
+      console.log(response);
     });
   }
 

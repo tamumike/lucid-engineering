@@ -1,5 +1,5 @@
 export const options = {
-  groups: [
+  departments: [
     'Operations',
     'Engineering',
     'Commercial',

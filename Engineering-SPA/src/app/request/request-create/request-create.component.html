@@ -15,9 +15,9 @@
               bsDatepicker
               [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD', containerClass: 'theme-default', adaptivePosition: true }">
 
-        <label class="font-weight-bold" for="group">Group</label>
-        <select class="form-control mb-3" id="group" required name="group" [(ngModel)]="model.group">
-          <option *ngFor="let group of groupsList">{{group}}</option>
+        <label class="font-weight-bold" for="department">Department</label>
+        <select class="form-control mb-3" id="department" required name="department" [(ngModel)]="model.department">
+          <option *ngFor="let department of departments">{{department}}</option>
         </select>
 
         <label class="font-weight-bold" for="locationOfProject">Location of Project</label>

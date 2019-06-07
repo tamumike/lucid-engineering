@@ -11,7 +11,8 @@ namespace Engineering.API.Models
         public DateTime DateInitiated { get; set; }
         public DateTime RequestedDateForCompletion { get; set; }
         public string InitiatedBy { get; set; }
-        public string Group { get; set; }
+        public string Department { get; set; }
+        public int Priority { get; set; }
         public string LocationOfProject { get; set; }
         public string Description { get; set; }
         public bool Approved { get; set; }

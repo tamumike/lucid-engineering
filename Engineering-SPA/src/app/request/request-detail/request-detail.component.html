@@ -20,8 +20,8 @@
       </div>
       <div class="card-body">
         <div class="container p-3 text-left">
-            <h6 class="card-subtitle mb-1 font-weight-bold">Group</h6>
-            <p class="card-text text-muted">{{request.group}}</p>
+            <h6 class="card-subtitle mb-1 font-weight-bold">Department</h6>
+            <p class="card-text text-muted">{{request.department}}</p>
         </div>
         <div class="container p-3 text-left">
             <h6 class="card-subtitle mb-1 font-weight-bold">Location of Project</h6>
@@ -51,6 +51,10 @@
           <h6 class="card-subtitle mb-1 font-weight-bold">Status</h6>
           <p class="card-text text-muted">{{request.status}}</p>
         </div>
+        <div class="container p-3 text-left">
+          <h6 class="card-subtitle mb-1 font-weight-bold">Priority</h6>
+          <p class="card-text text-muted">{{request.priority}}</p>
+        </div>
       </div>
       <div class="card-footer p-2 font-weight-bold">
         <p class="mb-0 {{request.approved | StatusPipe}}">{{request.approved | ApprovedBoolean}}</p>
@@ -61,9 +65,6 @@
 <ng-template #template>
   <div class="modal-header">
     <h4 class="modal-title pull-left">Status Update - {{request.esr}}</h4>
-    <!-- <button type="button" class="close pull-right" (click)="modalRef.hide()">
-      <span aria-hidden="true">&times;</span>
-    </button> -->
   </div>
   <div class="modal-body">
     <form #statusForm="ngForm" (ngSubmit)="changeStatus()">

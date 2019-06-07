@@ -27,7 +27,7 @@ getRequests(page?, itemsPerPage?, requestParams?): Observable<PaginatedResult<Re
   }
 
   if (requestParams != null) {
-    params = params.append('group', requestParams.group);
+    params = params.append('department', requestParams.department);
     params = params.append('approved', requestParams.approved);
     params = params.append('locationOfProject', requestParams.locationOfProject);
     params = params.append('engineerAssigned', requestParams.engineerAssigned);
@@ -86,6 +86,8 @@ approve(request: Request) {
 }
 
 changeStatus(request: Request) {
+  console.log(request);
+
   return this.http.put(this.baseUrl + 'requests/status/' + request.esr, request);
 }
 

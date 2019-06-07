@@ -12,6 +12,7 @@ namespace Engineering.API.Helpers
         }
 
         public string Group { get; set; }
+        public string Department { get; set; }
         public bool Approved { get; set; }
         public string LocationOfProject { get; set; }
         public string OrderBy { get; set; }

@@ -75,8 +75,8 @@ namespace Engineering.API.Data
                 requests = requests.Where(r => r.Approved == requestParams.Approved);
             }
 
-            if (!string.IsNullOrEmpty(requestParams.Group)) {
-                requests = requests.Where(r => r.Group == requestParams.Group);
+            if (!string.IsNullOrEmpty(requestParams.Department)) {
+                requests = requests.Where(r => r.Department == requestParams.Department);
             }
             if (!string.IsNullOrEmpty(requestParams.LocationOfProject)) {
                 requests = requests.Where(r => r.LocationOfProject == requestParams.LocationOfProject);

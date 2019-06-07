@@ -17,10 +17,10 @@
         <form #approvalForm="ngForm" (ngSubmit)="approve()">
           <div class="card-body form-group">
             <div class="container p-3 text-left">
-              <label for="group" class="card-subtitle font-weight-bold">Group</label>
-              <select class="form-control p-0" style="width: 130px" id="group" [(ngModel)]="request.group" name="group">
-                  <option *ngFor="let group of groupsList" [attr.selected]="request.group">
-                    {{group}}
+              <label for="group" class="card-subtitle font-weight-bold">Department</label>
+              <select class="form-control p-0" style="width: 130px" id="department" [(ngModel)]="request.department" name="department">
+                  <option *ngFor="let department of departments" [attr.selected]="request.department">
+                    {{department}}
                   </option>
               </select>
             </div>
@@ -56,6 +56,14 @@
                       bsDatepicker
                       style="width: 130px"
                       [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD', containerClass: 'theme-default' }">
+            </div>
+            <div class="container p-3 text-left">
+              <label class="card-subtitle font-weight-bold" for="priority">Priority</label>
+              <div class="row">
+                <button type="button" class="btn btn-outline-primary btn-sm h-50 w-2">+</button>
+                <input type="text" class="form-control" name="priority" style="max-width: 40px;" [value]="request.priority">
+                <button type="button" class="btn btn-outline-primary btn-sm h-50 w-2">-</button>
+              </div>
             </div>
             <button type="submit" class="btn btn-success">Approve</button>
           </div>

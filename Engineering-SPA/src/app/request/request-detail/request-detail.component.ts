@@ -1,6 +1,6 @@
-import { Component, OnInit, TemplateRef } from '@angular/core';
+import { Component, OnInit, TemplateRef, Input } from '@angular/core';
 import { RequestService } from 'src/app/_services/request.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Request } from '../../_models/request';
 import { UserService } from 'src/app/_services/user.service';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap';
@@ -20,7 +20,7 @@ export class RequestDetailComponent implements OnInit {
   model: any = {};
 
   constructor(private requestService: RequestService, private route: ActivatedRoute, private userService: UserService,
-    private modalService: BsModalService) { }
+    private modalService: BsModalService, private router: Router) { }
 
   ngOnInit() {
     this.route.data.subscribe(data => {

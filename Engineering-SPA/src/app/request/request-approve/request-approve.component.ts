@@ -14,7 +14,7 @@ import { UserService } from 'src/app/_services/user.service';
 export class RequestApproveComponent implements OnInit {
   request: Request;
   approvedRequest: any = {};
-  groupsList = options.groups;
+  departments = options.departments;
   locationsList = options.locations;
   engineersList: any;
   firstVal = undefined;

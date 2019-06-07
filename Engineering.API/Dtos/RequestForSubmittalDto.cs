@@ -15,7 +15,7 @@ namespace Engineering.API.Dtos
         [Required]
         public string InitiatedBy { get; set; }
         [Required]
-        public string Group { get; set; }
+        public string Department { get; set; }
         [Required]
         public string LocationOfProject { get; set; }
         [Required]
@@ -23,6 +23,7 @@ namespace Engineering.API.Dtos
         public bool Approved { get; set; }
         public string EngineerAssigned { get; set; }
         public DateTime? DateCompleted { get; set; }
+        public int Priority { get; set; }
         
         public RequestForSubmittalDto()
         {
