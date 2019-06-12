@@ -6,10 +6,8 @@ export const options = {
     'Management'
   ],
   locations: [
-    'Plant',
-    'Pipeline',
-    'Compressor Station',
-    'Other'
+    'South Carlsbad',
+    'Artesia'
   ],
   statuses: [
     'Started',

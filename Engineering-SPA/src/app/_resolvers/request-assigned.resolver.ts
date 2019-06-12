@@ -7,7 +7,7 @@ import { of } from 'rxjs';
 @Injectable()
 export class RequestAssignedResolver implements Resolve<Request[]> {
   pageNumber = 1;
-  pageSize = 5;
+  pageSize = 10;
   requestParams: any = {};
 
   constructor(private requestService: RequestService, private router: Router) {}

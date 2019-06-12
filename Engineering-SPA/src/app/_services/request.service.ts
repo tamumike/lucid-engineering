@@ -86,8 +86,6 @@ approve(request: Request) {
 }
 
 changeStatus(request: Request) {
-  console.log(request);
-
   return this.http.put(this.baseUrl + 'requests/status/' + request.esr, request);
 }
 

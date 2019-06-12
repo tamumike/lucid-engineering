@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl } from '@angular/forms';
 import { RequestService } from 'src/app/_services/request.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Request } from '../../_models/request';
@@ -18,6 +19,7 @@ export class RequestApproveComponent implements OnInit {
   locationsList = options.locations;
   engineersList: any;
   firstVal = undefined;
+  priority = new FormControl('');
   // model: any = {};
 
   constructor(private requestService: RequestService, private route: ActivatedRoute,
@@ -29,6 +31,23 @@ export class RequestApproveComponent implements OnInit {
     });
 
     this.getEngineers();
+    this.priority.setValue(this.request.priority);
+  }
+
+  increasePriority() {
+    let current = this.priority.value;
+    if (current < 3) {
+      current++;
+      this.priority.setValue(current);
+    }
+  }
+
+  decreasePriority() {
+    let current = this.priority.value;
+    if (current > 1) {
+      current--;
+      this.priority.setValue(current);
+    }
   }
 
   getEngineers() {

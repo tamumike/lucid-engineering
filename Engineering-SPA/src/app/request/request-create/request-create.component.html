@@ -12,24 +12,25 @@
               [(ngModel)]="model.requestedDateForCompletion"
               id="requestedDateForCompletion"
               class="form-control mb-3"
+              style="width: 30%"
               bsDatepicker
               [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD', containerClass: 'theme-default', adaptivePosition: true }">
 
         <label class="font-weight-bold" for="department">Department</label>
-        <select class="form-control mb-3" id="department" required name="department" [(ngModel)]="model.department">
+        <select class="form-control mb-3" id="department" required name="department" style="width: 30%" [(ngModel)]="model.department">
           <option *ngFor="let department of departments">{{department}}</option>
         </select>
 
         <label class="font-weight-bold" for="locationOfProject">Location of Project</label>
-        <select class="form-control mb-3" id="locationOfProject" required name="locationOfProject" [(ngModel)]="model.locationOfProject">
+        <select class="form-control mb-3" id="locationOfProject" required name="locationOfProject" style="width: 30%" [(ngModel)]="model.locationOfProject">
           <option *ngFor="let location of locationsList">{{location}}</option>
         </select>
 
         <label for="initiatedBy" class="font-weight-bold">Initiated By</label>
-        <input type="text" class="form-control mb-3" readonly required name="initiatedBy" [(ngModel)]="model.initiatedBy" value="{{username}}">
+        <input type="text" class="form-control mb-3" readonly required name="initiatedBy" [(ngModel)]="model.initiatedBy" style="width: 30%" value="{{username}}">
 
         <label class="font-weight-bold" for="description">Description</label>
-        <textarea class="form-control mb-3" id="description" rows="5" required name="description" [(ngModel)]="model.description"></textarea>
+        <textarea class="form-control mb-3" id="description" rows="2" required name="description" style="width: 90%" [(ngModel)]="model.description"></textarea>
       </div>
         <input class="btn btn-sm btn-success mr-2" type="submit" value="Submit">
         <!-- <button type="button" class="btn btn-sm btn-danger" [routerLink]="['/requests']">Cancel</button> -->

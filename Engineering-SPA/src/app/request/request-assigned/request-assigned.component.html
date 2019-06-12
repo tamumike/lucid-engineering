@@ -5,19 +5,30 @@
       <app-request-create></app-request-create>
     </div>
     <div class="col-md-6 mh-50 px-md-4">
-      <h3 class="ml-5">My Assigned Requests</h3>
+      <div class="row">
+        <div class="col-lg-4">
+          <h3 class="ml-5">My Assigned Requests</h3>
+        </div>
+      <!-- <div class="container d-flex justify-content-end mt-0 mb-3"> -->
+        <div class="col-lg-4"></div>
+        <div class="col-lg-4 d-flex justify-content-end mb-2">
+          <button class="btn btn-primary btn-sm" (click)="toggleApproved()">{{ assigned ? "Show All Requests" : "Show My Requests" }}</button>
+        </div>
+      <!-- </div> -->
+      </div>
         <div class="shadow rounded ml-4">
           <table class="table table-striped table-hover table-sm table-bordered text-center">
               <thead class="thead-dark">
                 <tr>
-                  <th scope="col">View</th>
-                  <th scope="col">ESR</th>
-                  <th scope="col">Date Initiated</th>
-                  <th scope="col">Requested Completion Date</th>
-                  <th scope="col">Group</th>
-                  <th scope="col">Location</th>
-                  <th scope="col">Approved</th>
-                  <th scope="col">Status</th>
+                  <th style="width: 2%" class="align-middle" scope="col">View</th>
+                  <th style="width: 5%" class="align-middle" scope="col">ESR</th>
+                  <th style="width: 7%" class="align-middle" scope="col">Date Initiated</th>
+                  <th style="width: 7%" class="align-middle" scope="col">Requested Completion Date</th>
+                  <th style="width: 7%" class="align-middle" scope="col">Department</th>
+                  <th style="width: 7%" class="align-middle" scope="col">Location</th>
+                  <th style="width: 20%" class="align-middle" scope="col">Description</th>
+                  <th style="width: 7%" class="align-middle" scope="col">Status</th>
+                  <th style="width: 2%" class="align-middle" scope="col">Priority</th>
                 </tr>
               </thead>
               <tbody>
@@ -26,10 +37,11 @@
                   <th>{{request.esr}}</th>
                   <td>{{request.dateInitiated | date}}</td>
                   <td>{{request.requestedDateForCompletion | date}}</td>
-                  <td>{{request.group}}</td>
+                  <td>{{request.department}}</td>
                   <td>{{request.locationOfProject}}</td>
-                  <td><i class="{{request.approved | IsApprovedPipe}}"></i></td>
+                  <td>{{request.description.slice(0, 51)}}...</td>
                   <td>{{request.status}}</td>
+                  <td>{{request.priority}}</td>
                 </tr>
               </tbody>
             </table>
@@ -44,16 +56,6 @@
           previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;">
         </pagination>
       </div>
-      <!-- <div class="border">
-        <div class="row">
-          <div class="border col-sm-4">
-          </div>
-          <div class="border border-danger col-sm-4">
-          </div>
-          <div class="border col-sm-4">
-          </div>
-        </div>
-      </div> -->
     </div>
   </div>
 </div>

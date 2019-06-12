@@ -17,7 +17,7 @@ import { RequestDetailResolver } from './_resolvers/request-detail.resolver';
 import { RequestViewResolver } from './_resolvers/request-view.resolver';
 import { StatusPipePipe } from './_pipes/StatusPipe.pipe';
 import { ApprovedBooleanPipe } from './_pipes/ApprovedBoolean.pipe';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AlertifyService } from './_services/alertify.service';
 import { UserService } from './_services/user.service';
 import { RequestApproveComponent } from './request/request-approve/request-approve.component';
@@ -51,7 +51,8 @@ import { ErrorInterceptorProvider } from './_services/error.interceptor';
       PaginationModule.forRoot(),
       ButtonsModule.forRoot(),
       TabsModule.forRoot(),
-      ModalModule.forRoot()
+      ModalModule.forRoot(),
+      ReactiveFormsModule
    ],
    providers: [
      RequestService,

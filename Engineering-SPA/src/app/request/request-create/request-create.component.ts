@@ -24,7 +24,7 @@ export class RequestCreateComponent implements OnInit {
 
   ngOnInit() {
     this.getUsername();
-    this.getRole();
+    // this.getRole();
   }
 
   getUsername() {
@@ -36,11 +36,11 @@ export class RequestCreateComponent implements OnInit {
     });
   }
 
-  getRole() {
-    this.userService.isAuthorizedToApprove().subscribe(response => {
-      console.log(response);
-    });
-  }
+  // getRole() {
+  //   this.userService.isAuthorizedToApprove().subscribe(response => {
+  //     console.log(response);
+  //   });
+  // }
 
   submit() {
     this.model.initiatedBy = this.username;

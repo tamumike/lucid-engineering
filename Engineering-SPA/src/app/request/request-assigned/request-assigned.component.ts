@@ -13,6 +13,7 @@ export class RequestAssignedComponent implements OnInit {
   requests: Request[];
   pagination: Pagination;
   requestParams: any = {};
+  assigned = true;
 
   constructor(private requestService: RequestService, private route: ActivatedRoute) { }
 
@@ -25,6 +26,12 @@ export class RequestAssignedComponent implements OnInit {
 
   pageChanged(event: any): void {
     this.pagination.currentPage = event.page;
+    this.loadRequests();
+  }
+
+  toggleApproved() {
+    this.assigned = !this.assigned;
+    (this.assigned) ? this.requestParams.user = 'jjones' : this.requestParams.user = ''; // REVIEW THIS
     this.loadRequests();
   }
 

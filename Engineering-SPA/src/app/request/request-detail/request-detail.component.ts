@@ -1,4 +1,5 @@
-import { Component, OnInit, TemplateRef, Input } from '@angular/core';
+import { Component, OnInit, TemplateRef } from '@angular/core';
+import { FormControl } from '@angular/forms';
 import { RequestService } from 'src/app/_services/request.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Request } from '../../_models/request';
@@ -18,6 +19,7 @@ export class RequestDetailComponent implements OnInit {
   modalRef: BsModalRef;
   statuses = options.statuses;
   model: any = {};
+  status = new FormControl('');
 
   constructor(private requestService: RequestService, private route: ActivatedRoute, private userService: UserService,
     private modalService: BsModalService, private router: Router) { }
@@ -28,6 +30,7 @@ export class RequestDetailComponent implements OnInit {
       this.approved = this.request.approved;
     });
 
+    this.status.setValue(this.request.status);
     this.isAuthorizedToApprove();
   }
 
@@ -47,10 +50,13 @@ export class RequestDetailComponent implements OnInit {
     this.modalRef.hide();
   }
 
+  updateStatus() {
+    this.status.setValue(this.model.status);
+  }
+
   changeStatus() {
     this.model.esr = this.request.esr;
     this.requestService.changeStatus(this.model).subscribe(response => {
-      console.log('submitted');
       this.modalRef.hide();
     }, error => {
       console.log(error);

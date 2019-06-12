@@ -59,10 +59,10 @@
             </div>
             <div class="container p-3 text-left">
               <label class="card-subtitle font-weight-bold" for="priority">Priority</label>
-              <div class="row">
-                <button type="button" class="btn btn-outline-primary btn-sm h-50 w-2">+</button>
-                <input type="text" class="form-control" name="priority" style="max-width: 40px;" [value]="request.priority">
-                <button type="button" class="btn btn-outline-primary btn-sm h-50 w-2">-</button>
+              <div class="row d-flex align-items-center ml-1">
+                <button type="button" class="btn btn-primary btn-sm" style="height: 25px; width: 25px" (click)="decreasePriority()"><p class="font-weight-bolder">-</p></button>
+                <input type="text" class="form-control text-center" name="priority" style="max-width: 40px;" [value]="priority.value" [formControl]="priority" [(ngModel)]="request.priority">
+                <button type="button" class="btn btn-primary btn-sm" style="height: 25px; width: 25px" (click)="increasePriority()"><p class="font-weight-bold">+</p></button>
               </div>
             </div>
             <button type="submit" class="btn btn-success">Approve</button>

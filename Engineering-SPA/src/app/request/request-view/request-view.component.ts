@@ -37,7 +37,7 @@ export class RequestViewComponent implements OnInit {
     this.getEngineers();
     this.isAuthorized();
 
-    this.requestParams.group = '';
+    this.requestParams.department = '';
     this.requestParams.locationOfProject = '';
     this.requestParams.engineerAssigned = '';
     this.requestParams.esr = '';
