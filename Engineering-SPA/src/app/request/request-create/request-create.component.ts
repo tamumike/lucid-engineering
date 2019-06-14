@@ -17,7 +17,7 @@ export class RequestCreateComponent implements OnInit {
   request: any = {};
   departments = options.departments;
   locationsList = options.locations;
-  username: string;
+  username: any;
 
   constructor(private requestService: RequestService, private router: Router,
     private alertify: AlertifyService, private userService: UserService) { }

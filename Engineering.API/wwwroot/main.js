@@ -710,7 +710,7 @@ var UserService = /** @class */ (function () {
         this.members = this.getGroupMembers();
     }
     UserService.prototype.getUsername = function () {
-        return this.http.get(this.baseUrl + 'user/username', { responseType: 'text' });
+        return this.http.get(this.baseUrl + 'user/username');
     };
     UserService.prototype.getGroupMembers = function () {
         return this.http.get(this.baseUrl + 'user/groupmembers');

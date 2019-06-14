@@ -23,10 +23,10 @@ namespace Engineering.API.Controllers
         [HttpGet("username")]
         public ActionResult<string> GetUsername()
         {
-            var user = _repo.GetUsername();
-            // _user = _httpContextAccessor.HttpContext.User.Identity.Name;
-            // _user = _user.Replace("LUCIDENERGY\\", "");
-            return user;
+            //var user = _repo.GetUsername();
+            _user = _httpContextAccessor.HttpContext.User.Identity.Name;
+            _user = _user.Replace("LUCIDENERGY\\", "");
+            return _user;
         }
 
         [HttpGet("authorizedtocreate")]

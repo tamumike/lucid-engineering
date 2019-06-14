@@ -14,7 +14,7 @@ export class UserService {
 constructor(private http: HttpClient) { }
 
 getUsername() {
-  return this.http.get(this.baseUrl + 'user/username', { responseType: 'text' });
+  return this.http.get(this.baseUrl + 'user/username');
 }
 
 getGroupMembers() {
