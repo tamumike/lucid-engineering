@@ -28,9 +28,9 @@ export class RequestCreateComponent implements OnInit {
   }
 
   getUsername() {
-    this.userService.getUsername().subscribe(() => {
+    this.userService.getUsername().subscribe((response) => {
       // this.alertify.success('Welcome!');
-      this.username = localStorage.getItem('username');
+      this.username = response;
     }, error => {
       this.alertify.error(error);
     });

@@ -31,6 +31,7 @@ namespace Engineering.API.Dtos
             DateInitiated = DateTime.Now.Date;
             Approved = false;
             EngineerAssigned = null;
+            Priority = 1;
         }
     }
 }

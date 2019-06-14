@@ -10,8 +10,8 @@ namespace Engineering.API.Data
     {
         private string _domain = "LUCIDENERGY";
         private string _group = "Engineer_ESR";
-        // private string _approver = "mlane";
-        private string _approver = "mlinden";
+        private string _approver = "mlane";
+        // private string _approver = "mlinden";
         public UserRepository()
         {
         }
@@ -38,6 +38,7 @@ namespace Engineering.API.Data
         public string GetUsername()
         {
             string user = Environment.UserName;
+            // string user = "mlinden";
             return user;
         }
 

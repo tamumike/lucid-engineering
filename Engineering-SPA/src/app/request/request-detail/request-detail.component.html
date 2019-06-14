@@ -9,7 +9,7 @@
       </div>
       <div class="col-sm d-flex flex-row-reverse">
           <!-- *ngIf="authorizedToApprove && !approved" -->
-        <button *ngIf="!approved" type="button" class="btn btn-success mb-2" [routerLink]="['/request-approve', request.esr]"><i class="fa fa-check-circle mr-2"></i>Approve</button>
+        <button *ngIf="authorizedToApprove && !approved" type="button" class="btn btn-success mb-2" [routerLink]="['/request-approve', request.esr]"><i class="fa fa-check-circle mr-2"></i>Approve</button>
         <button *ngIf="approved" type="button" class="btn btn-warning mb-2" (click)="openModal(template)"><i class="fa fa-exclamation-circle mr-2"></i>Update Status</button>
       </div>
     </div>

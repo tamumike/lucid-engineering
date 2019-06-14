@@ -21,9 +21,12 @@ namespace Engineering.API.Controllers
         private readonly IHttpContextAccessor _httpContextAccessor;
         // private string _user;
         private readonly IMapper _mapper;
+        private readonly IUserRepository _urepo;
+        private string _user;
 
-        public RequestsController(IRequestRepository repo, IHttpContextAccessor httpContextAccessor, IMapper mapper)
+        public RequestsController(IRequestRepository repo, IHttpContextAccessor httpContextAccessor, IMapper mapper, IUserRepository urepo)
         {
+            _urepo = urepo;
             _mapper = mapper;
             _httpContextAccessor = httpContextAccessor;
             _repo = repo;
@@ -36,7 +39,7 @@ namespace Engineering.API.Controllers
 
             var requestsToReturn = _mapper.Map<IEnumerable<RequestsForListDto>>(requests);
 
-            Response.AddPagination(requests.CurrentPage, requests.PageSize, 
+            Response.AddPagination(requests.CurrentPage, requests.PageSize,
                 requests.TotalCount, requests.TotalPages);
 
             return Ok(requestsToReturn);
@@ -45,11 +48,15 @@ namespace Engineering.API.Controllers
         [HttpGet("assigned")]
         public async Task<IActionResult> GetAssignedRequests([FromQuery]RequestParams requestParams)
         {
+            requestParams.User = _urepo.GetUsername();
+            // _user = _httpContextAccessor.HttpContext.User.Identity.Name;
+            // _user = _user.Replace("LUCIDENERGY\\", "");
+            // requestParams.User = _user;
             var requests = await _repo.GetAssignedRequests(requestParams);
 
             var requestsToReturn = _mapper.Map<IEnumerable<RequestsForListDto>>(requests);
 
-            Response.AddPagination(requests.CurrentPage, requests.PageSize, 
+            Response.AddPagination(requests.CurrentPage, requests.PageSize,
                 requests.TotalCount, requests.TotalPages);
 
             return Ok(requestsToReturn);
@@ -87,7 +94,7 @@ namespace Engineering.API.Controllers
 
             var requestToReturn = _mapper.Map<RequestForDetailedDto>(postedRequest);
 
-            return CreatedAtRoute("GetRequest", new {controller = "requests", ESR = postedRequest.ESR}, requestToReturn);
+            return CreatedAtRoute("GetRequest", new { controller = "requests", ESR = postedRequest.ESR }, requestToReturn);
         }
 
         [HttpPut("{ESR}")]
@@ -95,7 +102,7 @@ namespace Engineering.API.Controllers
         {
             if (await _repo.IsApproved(ESR))
                 return BadRequest("Already Approved");
-                
+
             var requestFromRepo = await _repo.GetRequest(ESR);
 
             requestFromRepo.ESR = await _repo.AssignESR(true);
@@ -103,7 +110,7 @@ namespace Engineering.API.Controllers
             var requestToReturn = _mapper.Map(requestForApprovalDto, requestFromRepo);
 
             if (await _repo.SaveAll())
-                return CreatedAtRoute("GetRequest", new {controller = "requests", ESR = requestFromRepo.ESR}, requestToReturn);
+                return CreatedAtRoute("GetRequest", new { controller = "requests", ESR = requestFromRepo.ESR }, requestToReturn);
 
             throw new Exception($"Approving request {ESR} failed on save.");
         }

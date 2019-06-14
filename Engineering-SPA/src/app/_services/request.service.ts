@@ -6,6 +6,7 @@ import { PaginatedResult } from '../_models/pagination';
 import { map } from 'rxjs/operators';
 import { Request } from '../_models/request';
 import { AlertifyService } from './alertify.service';
+import { UserService } from './user.service';
 
 @Injectable({
   providedIn: 'root'

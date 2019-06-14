@@ -18,8 +18,8 @@ export class NavComponent implements OnInit {
   }
 
   getUsername() {
-    this.userService.getUsername().subscribe(() => {
-      this.username = localStorage.getItem('username');
+    this.userService.getUsername().subscribe((response) => {
+      this.username = response;
     }, error => {
       console.log(error);
     });
