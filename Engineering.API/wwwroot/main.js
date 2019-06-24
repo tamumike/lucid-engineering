@@ -309,6 +309,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _services_request_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../_services/request.service */ "./src/app/_services/request.service.ts");
 /* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
 /* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
+/* harmony import */ var _services_user_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../_services/user.service */ "./src/app/_services/user.service.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -323,17 +324,18 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
+
 var RequestAssignedResolver = /** @class */ (function () {
-    function RequestAssignedResolver(requestService, router) {
+    function RequestAssignedResolver(requestService, router, userService) {
         this.requestService = requestService;
         this.router = router;
+        this.userService = userService;
         this.pageNumber = 1;
         this.pageSize = 10;
         this.requestParams = {};
     }
     RequestAssignedResolver.prototype.resolve = function (route) {
         var _this = this;
-        this.requestParams.user = 'jjones';
         return this.requestService.getAssignedRequests(this.pageNumber, this.pageSize, this.requestParams)
             .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["catchError"])(function (error) {
             console.log(error);
@@ -343,7 +345,7 @@ var RequestAssignedResolver = /** @class */ (function () {
     };
     RequestAssignedResolver = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])(),
-        __metadata("design:paramtypes", [_services_request_service__WEBPACK_IMPORTED_MODULE_2__["RequestService"], _angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"]])
+        __metadata("design:paramtypes", [_services_request_service__WEBPACK_IMPORTED_MODULE_2__["RequestService"], _angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"], _services_user_service__WEBPACK_IMPORTED_MODULE_5__["UserService"]])
     ], RequestAssignedResolver);
     return RequestAssignedResolver;
 }());
@@ -710,7 +712,7 @@ var UserService = /** @class */ (function () {
         this.members = this.getGroupMembers();
     }
     UserService.prototype.getUsername = function () {
-        return this.http.get(this.baseUrl + 'user/username');
+        return this.http.get(this.baseUrl + 'user/username', { responseType: 'text' });
     };
     UserService.prototype.getGroupMembers = function () {
         return this.http.get(this.baseUrl + 'user/groupmembers');
@@ -1220,6 +1222,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var src_app_services_request_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! src/app/_services/request.service */ "./src/app/_services/request.service.ts");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var src_app_services_user_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/_services/user.service */ "./src/app/_services/user.service.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1232,18 +1235,29 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
+
 var RequestAssignedComponent = /** @class */ (function () {
-    function RequestAssignedComponent(requestService, route) {
+    function RequestAssignedComponent(requestService, route, userService) {
         this.requestService = requestService;
         this.route = route;
+        this.userService = userService;
         this.requestParams = {};
         this.assigned = true;
     }
     RequestAssignedComponent.prototype.ngOnInit = function () {
         var _this = this;
+        this.getUsername();
         this.route.data.subscribe(function (data) {
             _this.requests = data['requests'].result;
             _this.pagination = data['requests'].pagination;
+        });
+    };
+    RequestAssignedComponent.prototype.getUsername = function () {
+        var _this = this;
+        this.userService.getUsername().subscribe(function (response) {
+            _this.username = response;
+        }, function (error) {
+            console.log(error);
         });
     };
     RequestAssignedComponent.prototype.pageChanged = function (event) {
@@ -1256,6 +1270,7 @@ var RequestAssignedComponent = /** @class */ (function () {
     };
     RequestAssignedComponent.prototype.loadAssignedRequests = function () {
         var _this = this;
+        this.requestParams.user = this.username;
         this.requestService.getAssignedRequests(this.pagination.currentPage, this.pagination.itemsPerPage, this.requestParams)
             .subscribe(function (res) {
             _this.requests = res.result;
@@ -1288,7 +1303,7 @@ var RequestAssignedComponent = /** @class */ (function () {
             template: __webpack_require__(/*! ./request-assigned.component.html */ "./src/app/request/request-assigned/request-assigned.component.html"),
             styles: [__webpack_require__(/*! ./request-assigned.component.css */ "./src/app/request/request-assigned/request-assigned.component.css")]
         }),
-        __metadata("design:paramtypes", [src_app_services_request_service__WEBPACK_IMPORTED_MODULE_1__["RequestService"], _angular_router__WEBPACK_IMPORTED_MODULE_2__["ActivatedRoute"]])
+        __metadata("design:paramtypes", [src_app_services_request_service__WEBPACK_IMPORTED_MODULE_1__["RequestService"], _angular_router__WEBPACK_IMPORTED_MODULE_2__["ActivatedRoute"], src_app_services_user_service__WEBPACK_IMPORTED_MODULE_3__["UserService"]])
     ], RequestAssignedComponent);
     return RequestAssignedComponent;
 }());
@@ -1366,23 +1381,15 @@ var RequestCreateComponent = /** @class */ (function () {
     }
     RequestCreateComponent.prototype.ngOnInit = function () {
         this.getUsername();
-        // this.getRole();
     };
     RequestCreateComponent.prototype.getUsername = function () {
         var _this = this;
         this.userService.getUsername().subscribe(function (response) {
-            // this.alertify.success('Welcome!');
             _this.username = response;
-            console.log(response);
         }, function (error) {
             _this.alertify.error(error);
         });
     };
-    // getRole() {
-    //   this.userService.isAuthorizedToApprove().subscribe(response => {
-    //     console.log(response);
-    //   });
-    // }
     RequestCreateComponent.prototype.submit = function () {
         var _this = this;
         this.model.initiatedBy = this.username;

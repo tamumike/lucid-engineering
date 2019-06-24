@@ -24,24 +24,15 @@ export class RequestCreateComponent implements OnInit {
 
   ngOnInit() {
     this.getUsername();
-    // this.getRole();
   }
 
   getUsername() {
     this.userService.getUsername().subscribe((response) => {
-      // this.alertify.success('Welcome!');
       this.username = response;
-      console.log(response);
     }, error => {
       this.alertify.error(error);
     });
   }
-
-  // getRole() {
-  //   this.userService.isAuthorizedToApprove().subscribe(response => {
-  //     console.log(response);
-  //   });
-  // }
 
   submit() {
     this.model.initiatedBy = this.username;

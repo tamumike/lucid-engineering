@@ -3,6 +3,7 @@ import { RequestService } from 'src/app/_services/request.service';
 import { Request } from '../../_models/request';
 import { Pagination, PaginatedResult } from 'src/app/_models/pagination';
 import { ActivatedRoute } from '@angular/router';
+import { UserService } from 'src/app/_services/user.service';
 
 @Component({
   selector: 'app-request-assigned',
@@ -16,12 +17,21 @@ export class RequestAssignedComponent implements OnInit {
   assigned = true;
   username: any;
 
-  constructor(private requestService: RequestService, private route: ActivatedRoute) { }
+  constructor(private requestService: RequestService, private route: ActivatedRoute, private userService: UserService) { }
 
   ngOnInit() {
+    this.getUsername();
     this.route.data.subscribe(data => {
       this.requests = data['requests'].result;
       this.pagination = data['requests'].pagination;
+    });
+  }
+
+  getUsername() {
+    this.userService.getUsername().subscribe((response) => {
+      this.username = response;
+    }, error => {
+      console.log(error);
     });
   }
 
@@ -36,6 +46,7 @@ export class RequestAssignedComponent implements OnInit {
   }
 
   loadAssignedRequests() {
+    this.requestParams.user = this.username;
     this.requestService.getAssignedRequests(this.pagination.currentPage, this.pagination.itemsPerPage, this.requestParams)
       .subscribe((res: PaginatedResult<Request[]>) => {
       this.requests = res.result;

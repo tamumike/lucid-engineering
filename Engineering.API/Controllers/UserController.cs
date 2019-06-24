@@ -19,15 +19,15 @@ namespace Engineering.API.Controllers
         {
             _httpContextAccessor = httpContextAccessor;
             _repo = repo;
-            _user = httpContextAccessor.HttpContext.User.Identity.Name;
+            _user = _repo.GetUserPrincipal().SamAccountName;
         }
 
         [HttpGet("username")]
         public ActionResult<string> GetUsername()
         {
-            var _test = _repo.GetUserPrincipal().ToString();
+            // var _test = _repo.GetUserPrincipal().SamAccountName;
             // _user = _user.Replace("LUCIDENERGY\\", "");
-            return _test;
+            return _user;
         }
 
         [HttpGet("authorizedtocreate")]
@@ -52,9 +52,9 @@ namespace Engineering.API.Controllers
         [HttpGet("authorizedtoapprove")]
         public bool IsAuthorizedToApproveRequest()
         {
-            var username = _repo.GetUsername();
+            // var username = _repo.GetUsername();
 
-            return _repo.IsAuthorizedToApproveRequest(username.ToString());
+            return _repo.IsAuthorizedToApproveRequest(_user);
         }
 
     }

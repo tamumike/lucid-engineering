@@ -10,12 +10,12 @@ export class RequestAssignedResolver implements Resolve<Request[]> {
   pageNumber = 1;
   pageSize = 10;
   requestParams: any = {};
+  username: any;
 
-  constructor(private requestService: RequestService, private router: Router) {
+  constructor(private requestService: RequestService, private router: Router, private userService: UserService) {
   }
 
   resolve(route: ActivatedRouteSnapshot) {
-    this.requestParams.user = 'jjones';
     return this.requestService.getAssignedRequests(this.pageNumber, this.pageSize, this.requestParams)
       .pipe(
         catchError(error => {
