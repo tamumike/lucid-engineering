@@ -37,7 +37,7 @@ export class RequestAssignedComponent implements OnInit {
 
   pageChanged(event: any): void {
     this.pagination.currentPage = event.page;
-    this.loadAssignedRequests();
+    (this.assigned) ? this.loadAssignedRequests() : this.resetFilters();
   }
 
   toggleApproved() {
