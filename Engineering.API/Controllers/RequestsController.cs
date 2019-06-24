@@ -22,7 +22,7 @@ namespace Engineering.API.Controllers
         // private string _user;
         private readonly IMapper _mapper;
         private readonly IUserRepository _urepo;
-        private string _user;
+        // private string _user;
 
         public RequestsController(IRequestRepository repo, IHttpContextAccessor httpContextAccessor, IMapper mapper, IUserRepository urepo)
         {
@@ -48,10 +48,10 @@ namespace Engineering.API.Controllers
         [HttpGet("assigned")]
         public async Task<IActionResult> GetAssignedRequests([FromQuery]RequestParams requestParams)
         {
-            // requestParams.User = _urepo.GetUsername();
-            _user = _httpContextAccessor.HttpContext.User.Identity.Name;
-            _user = _user.Replace("LUCIDENERGY\\", "");
-            requestParams.User = _user;
+            requestParams.User = _urepo.GetUsername();
+            //_user = _httpContextAccessor.HttpContext.User.Identity.Name;
+            //_user = _user.Replace("LUCIDENERGY\\", "");
+            //requestParams.User = _user;
             var requests = await _repo.GetAssignedRequests(requestParams);
 
             var requestsToReturn = _mapper.Map<IEnumerable<RequestsForListDto>>(requests);

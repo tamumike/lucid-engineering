@@ -2,7 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.DirectoryServices.AccountManagement;
 using System.DirectoryServices.ActiveDirectory;
+using System.Security.Claims;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 
 namespace Engineering.API.Data
 {
@@ -12,8 +14,10 @@ namespace Engineering.API.Data
         private string _group = "Engineer_ESR";
         private string _approver = "mlane";
         // private string _approver = "mlinden";
-        public UserRepository()
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        public UserRepository(IHttpContextAccessor httpContextAccessor) 
         {
+            _httpContextAccessor = httpContextAccessor; 
         }
         public PrincipalContext GetDomain()
         {
@@ -28,7 +32,8 @@ namespace Engineering.API.Data
             var users = grp.GetMembers(true);
             List<KeyValuePair<string, string>> allUsers = new List<KeyValuePair<string, string>>();
 
-            foreach(UserPrincipal user in users) {
+            foreach (UserPrincipal user in users)
+            {
                 allUsers.Add(new KeyValuePair<string, string>(user.Name, user.SamAccountName));
             }
 
@@ -37,7 +42,7 @@ namespace Engineering.API.Data
 
         public string GetUsername()
         {
-            string user = Environment.UserName;
+            string user = _httpContextAccessor.HttpContext.User.Identity.Name;
             // string user = "mlinden";
             return user;
         }
@@ -50,7 +55,8 @@ namespace Engineering.API.Data
 
         public bool IsAuthorizedToApproveRequest(string username)
         {
-            if (username == _approver) {
+            if (username == _approver)
+            {
                 return true;
             }
 
@@ -58,10 +64,10 @@ namespace Engineering.API.Data
         }
 
         public bool IsAuthorizedToCreateRequest(UserPrincipal username, PrincipalContext ctx)
-        {        
+        {
             GroupPrincipal grp = GroupPrincipal.FindByIdentity(ctx, _group);
             return username.IsMemberOf(grp);
-            
+
         }
     }
 }

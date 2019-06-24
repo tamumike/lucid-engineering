@@ -36,11 +36,12 @@ namespace Engineering.API
             services.AddDbContext<DataContext>(x => x.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddCors();
             services.AddAutoMapper();
+            services.AddHttpContextAccessor();
             services.AddScoped<IRequestRepository, RequestRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddAuthentication(HttpSysDefaults.AuthenticationScheme);
             services.Configure<IISOptions>(options => options.AutomaticAuthentication = true);
-            services.AddHttpContextAccessor();
+            // services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
 

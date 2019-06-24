@@ -31,6 +31,7 @@ export class RequestCreateComponent implements OnInit {
     this.userService.getUsername().subscribe((response) => {
       // this.alertify.success('Welcome!');
       this.username = response;
+      console.log(response);
     }, error => {
       this.alertify.error(error);
     });

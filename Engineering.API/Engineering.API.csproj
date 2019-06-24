@@ -9,5 +9,7 @@
     <PackageReference Include="System.DirectoryServices" Version="4.5.0"/>
     <PackageReference Include="System.DirectoryServices.AccountManagement" Version="4.5.0"/>
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="4.0.1"/>
+    <PackageReference Include="Microsoft.AspNetCore.Authentication" Version="2.2.0"/>
+    <PackageReference Include="Microsoft.AspNetCore.Server.IISIntegration" Version="2.2.1"/>
   </ItemGroup>
 </Project>

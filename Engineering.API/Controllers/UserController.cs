@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using Engineering.API.Data;
 using Microsoft.AspNetCore.Http;
@@ -13,20 +12,22 @@ namespace Engineering.API.Controllers
     {
         private readonly IUserRepository _repo;
         private readonly IHttpContextAccessor _httpContextAccessor;
-        private string _user;
+        private readonly string _user;
+
+        // private string _user;
         public UserController(IUserRepository repo, IHttpContextAccessor httpContextAccessor)
         {
             _httpContextAccessor = httpContextAccessor;
             _repo = repo;
+            _user = httpContextAccessor.HttpContext.User.Identity.Name;
         }
 
         [HttpGet("username")]
         public ActionResult<string> GetUsername()
         {
-            //var user = _repo.GetUsername();
-            _user = _httpContextAccessor.HttpContext.User.Identity.Name;
-            _user = _user.Replace("LUCIDENERGY\\", "");
-            return _user;
+            var _test = _repo.GetUserPrincipal().ToString();
+            // _user = _user.Replace("LUCIDENERGY\\", "");
+            return _test;
         }
 
         [HttpGet("authorizedtocreate")]

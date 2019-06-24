@@ -1373,6 +1373,7 @@ var RequestCreateComponent = /** @class */ (function () {
         this.userService.getUsername().subscribe(function (response) {
             // this.alertify.success('Welcome!');
             _this.username = response;
+            console.log(response);
         }, function (error) {
             _this.alertify.error(error);
         });
