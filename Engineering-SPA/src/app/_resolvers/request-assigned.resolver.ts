@@ -3,7 +3,6 @@ import { Resolve, Router, ActivatedRouteSnapshot } from '@angular/router';
 import { RequestService } from '../_services/request.service';
 import { catchError } from 'rxjs/operators';
 import { of } from 'rxjs';
-import { UserService } from '../_services/user.service';
 
 @Injectable()
 export class RequestAssignedResolver implements Resolve<Request[]> {
@@ -12,7 +11,7 @@ export class RequestAssignedResolver implements Resolve<Request[]> {
   requestParams: any = {};
   username: any;
 
-  constructor(private requestService: RequestService, private router: Router, private userService: UserService) {
+  constructor(private requestService: RequestService, private router: Router) {
   }
 
   resolve(route: ActivatedRouteSnapshot) {

@@ -7,18 +7,20 @@ using Engineering.API.Models;
 using Microsoft.EntityFrameworkCore;
 using System.DirectoryServices.AccountManagement;
 using Engineering.API.Helpers;
+using Microsoft.AspNetCore.Http;
 
 namespace Engineering.API.Data
 {
     public class RequestRepository : IRequestRepository
     {
         private readonly DataContext _context;
-        public RequestRepository(DataContext context)
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        public RequestRepository(DataContext context, IHttpContextAccessor httpContextAccessor)
         {
+            _httpContextAccessor = httpContextAccessor;
             _context = context;
-
         }
-        
+
         public async Task<string> AssignESR(bool isApproved)
         {
             DateTime currentDate = DateTime.Now.Date;
@@ -39,8 +41,8 @@ namespace Engineering.API.Data
                 }
             }
 
-            int maxESR = ESRsToParse.Length > 0 ? ESRsToParse.Max() + 1 : 1; 
-            string newESR = maxESR.ToString();            
+            int maxESR = ESRsToParse.Length > 0 ? ESRsToParse.Max() + 1 : 1;
+            string newESR = maxESR.ToString();
             string zerosToPad = "";
             string suffix = isApproved ? "-A" : "-N";
 
@@ -53,9 +55,11 @@ namespace Engineering.API.Data
 
         public async Task<PagedList<Request>> GetAssignedRequests(RequestParams requestParams)
         {
+
             var requests = _context.Requests.OrderBy(r => r.ESR).AsQueryable();
 
-            if (!string.IsNullOrEmpty(requestParams.User)) {
+            if (!string.IsNullOrEmpty(requestParams.User))
+            {
                 requests = requests.Where(r => r.EngineerAssigned == requestParams.User);
             }
             return await PagedList<Request>.CreateAsync(requests, requestParams.PageNumber, requestParams.PageSize);
@@ -71,19 +75,24 @@ namespace Engineering.API.Data
         {
             var requests = _context.Requests.OrderBy(r => r.ESR).AsQueryable();
 
-            if (requestParams.Approved) {
+            if (requestParams.Approved)
+            {
                 requests = requests.Where(r => r.Approved == requestParams.Approved);
             }
-            if (!string.IsNullOrEmpty(requestParams.Department)) {
+            if (!string.IsNullOrEmpty(requestParams.Department))
+            {
                 requests = requests.Where(r => r.Department == requestParams.Department);
             }
-            if (!string.IsNullOrEmpty(requestParams.LocationOfProject)) {
+            if (!string.IsNullOrEmpty(requestParams.LocationOfProject))
+            {
                 requests = requests.Where(r => r.LocationOfProject == requestParams.LocationOfProject);
             }
-            if (!string.IsNullOrEmpty(requestParams.EngineerAssigned)) {
+            if (!string.IsNullOrEmpty(requestParams.EngineerAssigned))
+            {
                 requests = requests.Where(r => r.EngineerAssigned == requestParams.EngineerAssigned);
             }
-            if (!string.IsNullOrEmpty(requestParams.ESR)) {
+            if (!string.IsNullOrEmpty(requestParams.ESR))
+            {
                 requests = requests.Where(r => r.ESR == requestParams.ESR);
             }
             if (!string.IsNullOrEmpty(requestParams.OrderBy))

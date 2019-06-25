@@ -20,18 +20,9 @@ export class RequestAssignedComponent implements OnInit {
   constructor(private requestService: RequestService, private route: ActivatedRoute, private userService: UserService) { }
 
   ngOnInit() {
-    this.getUsername();
     this.route.data.subscribe(data => {
       this.requests = data['requests'].result;
       this.pagination = data['requests'].pagination;
-    });
-  }
-
-  getUsername() {
-    this.userService.getUsername().subscribe((response) => {
-      this.username = response;
-    }, error => {
-      console.log(error);
     });
   }
 
@@ -46,7 +37,6 @@ export class RequestAssignedComponent implements OnInit {
   }
 
   loadAssignedRequests() {
-    this.requestParams.user = this.username;
     this.requestService.getAssignedRequests(this.pagination.currentPage, this.pagination.itemsPerPage, this.requestParams)
       .subscribe((res: PaginatedResult<Request[]>) => {
       this.requests = res.result;
