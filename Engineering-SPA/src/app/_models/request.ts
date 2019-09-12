@@ -11,4 +11,5 @@ export interface Request {
   engineerAssigned?: string;
   status?: string;
   dateCompleted?: Date;
+  comments: string;
 }

@@ -19,14 +19,12 @@ namespace Engineering.API.Controllers
         {
             _httpContextAccessor = httpContextAccessor;
             _repo = repo;
-            _user = _repo.GetUserPrincipal().SamAccountName;
+            _user = _repo.GetUsername();
         }
 
         [HttpGet("username")]
         public ActionResult<string> GetUsername()
         {
-            // var _test = _repo.GetUserPrincipal().SamAccountName;
-            // _user = _user.Replace("LUCIDENERGY\\", "");
             return _user;
         }
 

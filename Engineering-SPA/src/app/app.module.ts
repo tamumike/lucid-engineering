@@ -24,8 +24,11 @@ import { RequestApproveComponent } from './request/request-approve/request-appro
 import { RequestApproveResolver } from './_resolvers/request-approve.resolver';
 import { RequestAssignedComponent } from './request/request-assigned/request-assigned.component';
 import { RequestAssignedResolver } from './_resolvers/request-assigned.resolver';
+import { RequestEditResolver } from './_resolvers/request-edit.resolver';
 import { AuthGuard } from './_guards/auth.guard';
 import { ErrorInterceptorProvider } from './_services/error.interceptor';
+import { RequestEditComponent } from './request/request-edit/request-edit.component';
+import { DateCompletedPipe } from './_pipes/DateCompleted.pipe';
 
 @NgModule({
    declarations: [
@@ -37,9 +40,11 @@ import { ErrorInterceptorProvider } from './_services/error.interceptor';
       IsApprovedPipePipe,
       StatusPipePipe,
       ApprovedBooleanPipe,
+      DateCompletedPipe,
       HomeComponent,
       RequestApproveComponent,
-      RequestAssignedComponent
+      RequestAssignedComponent,
+      RequestEditComponent
    ],
    imports: [
       BrowserModule,
@@ -60,6 +65,7 @@ import { ErrorInterceptorProvider } from './_services/error.interceptor';
      RequestViewResolver,
      RequestApproveResolver,
      RequestAssignedResolver,
+     RequestEditResolver,
      AlertifyService,
      UserService,
      AuthGuard,

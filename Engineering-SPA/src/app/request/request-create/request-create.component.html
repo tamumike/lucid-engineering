@@ -1,40 +1,48 @@
-<!-- <div class="container p-3"> -->
-  <form #submitForm="ngForm" (ngSubmit)="submit()">
+<form #submitForm="ngForm" (ngSubmit)="submit()">
 
-    <div class="form-group p-4">
-      <h3 class="mb-5 mt-2 font-weight-bold">Create a Service Request</h3>
-      <div class="border p-4 mb-2">
-      <label class="font-weight-bold" for="requestedDateForCompletion">Requested Date For Completion</label>
-      <input type="text"
-              autocomplete="off"
-              required
-              name="requestedDateForCompletion"
-              [(ngModel)]="model.requestedDateForCompletion"
-              id="requestedDateForCompletion"
-              class="form-control mb-3"
-              style="width: 30%"
-              bsDatepicker
-              [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD', containerClass: 'theme-default', adaptivePosition: true }">
+  <div class="form-group p-4">
+    <h3 class="mb-5 mt-2 font-weight-bold">Create a Service Request</h3>
+    <div class="border p-4 mb-2">
+    <label class="font-weight-bold" for="requestedDateForCompletion">Requested Date For Completion</label>
+    <input type="text"
+            autocomplete="off"
+            required
+            name="requestedDateForCompletion"
+            [(ngModel)]="model.requestedDateForCompletion"
+            id="requestedDateForCompletion"
+            class="form-control mb-3"
+            style="width: 30%"
+            bsDatepicker
+            [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD', containerClass: 'theme-default', adaptivePosition: true }">
 
-        <label class="font-weight-bold" for="department">Department</label>
-        <select class="form-control mb-3" id="department" required name="department" style="width: 30%" [(ngModel)]="model.department">
-          <option *ngFor="let department of departments">{{department}}</option>
-        </select>
+      <label class="font-weight-bold" for="department">Department</label>
+      <select class="form-control mb-3" id="department" required name="department" style="width: 30%" [(ngModel)]="model.department">
+        <option *ngFor="let department of departments">{{department}}</option>
+      </select>
 
-        <label class="font-weight-bold" for="locationOfProject">Location of Project</label>
-        <select class="form-control mb-3" id="locationOfProject" required name="locationOfProject" style="width: 30%" [(ngModel)]="model.locationOfProject">
-          <option *ngFor="let location of locationsList">{{location}}</option>
-        </select>
+      <label class="font-weight-bold" for="locationOfProject">Location of Project</label>
+      <select class="form-control mb-3" id="locationOfProject" required name="locationOfProject" style="width: 30%" [(ngModel)]="model.locationOfProject">
+        <option *ngFor="let location of locationsList">{{location}}</option>
+      </select>
 
-        <label for="initiatedBy" class="font-weight-bold">Initiated By</label>
-        <input type="text" class="form-control mb-3" readonly required name="initiatedBy" [(ngModel)]="model.initiatedBy" style="width: 30%" value="{{username}}">
+      <label for="initiatedBy" class="font-weight-bold">Initiated By</label>
+      <input type="text" class="form-control mb-3" readonly required name="initiatedBy" [(ngModel)]="model.initiatedBy" style="width: 30%" value="{{username}}">
 
-        <label class="font-weight-bold" for="description">Description</label>
-        <textarea class="form-control mb-3" id="description" rows="2" required name="description" style="width: 90%" [(ngModel)]="model.description"></textarea>
-      </div>
-        <input class="btn btn-sm btn-success mr-2" type="submit" value="Submit">
-        <!-- <button type="button" class="btn btn-sm btn-danger" [routerLink]="['/requests']">Cancel</button> -->
-      </div>
-
-  </form>
-<!-- </div> -->
+      <label class="font-weight-bold" for="description">Description</label>
+      <textarea class="form-control mb-3" id="description" rows="2" required name="description" style="width: 90%" [(ngModel)]="model.description"></textarea>
+    </div>
+      <input class="btn btn-sm btn-success mr-2" type="button" id="saveBtn" data-toggle="modal" data-target="#template" (click)="openModal(template)" value="Submit">
+    </div>
+  <ng-template #template>
+    <div class="modal-header">
+      <h4 class="modal-title pull-left">Confirmation</h4>
+    </div>
+    <div class="modal-body border">
+      <h6>Are you sure you want to save your changes?</h6>
+      <form #modalForm="ngForm" (ngSubmit)="submit()" class="mt-3">
+        <input type="submit" value="Submit" class="btn btn-sm btn-success">
+        <button type="button" class="btn btn-sm btn-danger ml-2" (click)="cancel(template)">Cancel</button>
+      </form>
+    </div>
+  </ng-template>
+</form>

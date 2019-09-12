@@ -9,6 +9,8 @@ import { RequestApproveComponent } from './request/request-approve/request-appro
 import { RequestApproveResolver } from './_resolvers/request-approve.resolver';
 import { RequestAssignedResolver } from './_resolvers/request-assigned.resolver';
 import { AuthGuard } from './_guards/auth.guard';
+import { RequestEditComponent } from './request/request-edit/request-edit.component';
+import { RequestEditResolver } from './_resolvers/request-edit.resolver';
 
 export const appRoutes: Routes = [
   { path: 'home', component: HomeComponent, resolve: {requests: RequestAssignedResolver} },
@@ -16,5 +18,6 @@ export const appRoutes: Routes = [
   { path: 'request-create', component: RequestCreateComponent },
   { path: 'requests/:esr', component: RequestDetailComponent, resolve: {request: RequestDetailResolver} },
   { path: 'request-approve/:esr', component: RequestApproveComponent, resolve: {request: RequestApproveResolver} },
+  { path: 'request-edit/:esr', component: RequestEditComponent, resolve: {request: RequestEditResolver} },
   { path: '**', redirectTo: 'home', pathMatch: 'full' }
 ];

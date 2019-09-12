@@ -12,8 +12,8 @@ namespace Engineering.API.Data
     {
         private string _domain = "LUCIDENERGY";
         private string _group = "Engineer_ESR";
-        private string _approver = "mlane";
-        // private string _approver = "mlinden";
+        // private string _approver = "MLane";
+        private string _approver = "mlinden";
         private readonly IHttpContextAccessor _httpContextAccessor;
         public UserRepository(IHttpContextAccessor httpContextAccessor) 
         {
@@ -42,8 +42,9 @@ namespace Engineering.API.Data
 
         public string GetUsername()
         {
-            string user = _httpContextAccessor.HttpContext.User.Identity.Name;
-            // string user = "mlinden";
+            string user = Environment.UserName;
+            // string user = _httpContextAccessor.HttpContext.User.Identity.Name;
+            // user = user.Replace("LUCIDENERGY\\", "");
             return user;
         }
 

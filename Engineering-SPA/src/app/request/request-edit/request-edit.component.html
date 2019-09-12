@@ -1,0 +1,92 @@
+<div class="container mt-5 w-75">
+  <div class="container p-0">
+  <div class="row">
+    <div class="col-sm">
+      <button type="button" class="btn btn-sm btn-dark mb-2" [routerLink]="['/home']"><i class="fa fa-arrow-circle-left mr-2"></i>Back</button>
+    </div>
+  </div>
+  </div>
+  <div class="card text-center border-dark shadow">
+    <div class="card-header">
+      <div class="container">
+        <div class="row">
+          <div class="col-sm"></div>
+          <div class="col-sm"><h3 class="card-title font-weight-bolder mb-0">{{request.esr}}</h3></div>
+          <div class="col-sm d-flex flex-row-reverse">
+          </div>
+        </div>
+      </div>
+    </div>
+  <div class="card-body border">
+  <form  #submitForm="ngForm">
+    <div class="container p-3 text-left">
+        <h6 class="card-subtitle font-weight-bold">Department</h6>
+        <input type="text" name="department" class="form-control" style="max-width:50%;" value="{{request.department}}" [(ngModel)]="model.department" autofocus>
+    </div>
+    <div class="container p-3 text-left">
+        <h6 class="card-subtitle font-weight-bold">Location of Project</h6>
+        <select class="form-control" id="locationOfProject" required name="locationOfProject" style="max-width:50%;" [(ngModel)]="model.locationOfProject">
+            <option *ngFor="let location of locationsList">{{location}}</option>
+        </select>
+    </div>
+    <div class="container p-3 text-left">
+        <h6 class="card-subtitle font-weight-bold">Description</h6>
+        <input type="text" name="description" class="form-control" style="max-width:50%;" value="{{request.description}}" [(ngModel)]="model.description">
+    </div>
+    <div class="container p-3 text-left">
+        <h6 class="card-subtitle font-weight-bold">Status</h6>
+        <input type="text" name="status" class="form-control" style="max-width:50%;" value="{{request.status}}" [(ngModel)]="model.status">
+    </div>
+    <div class="container p-3 text-left">
+      <label for="engineerAssigned" class="card-subtitle font-weight-bold">Engineer Assigned</label>
+      <select name="engineersAssigned" id="engineerAssigned" style="max-width: 50%;" class="form-control p-0" [(ngModel)]="model.engineerAssigned">
+        <option [ngValue]="null"></option>
+        <option>mlinden</option>
+        <option *ngFor="let engineer of engineersList" [value]="engineer.value">
+          {{engineer.key}}
+        </option>
+      </select>
+    </div>
+    <div class="container p-3 text-left">
+      <label class="card-subtitle font-weight-bold" for="priority">Priority</label>
+      <div class="row d-flex align-items-center ml-1">
+        <button type="button" title="Decrease" class="btn btn-sm" style="height: 25px; width: 25px" (click)="decreasePriority()"><p class="font-weight-bolder">-</p></button>
+        <input type="text" class="form-control text-center" name="priority" style="max-width: 40px;" [value]="priority.value" [(ngModel)]="model.priority">
+        <button type="button" title="Increase" class="btn btn-sm" style="height: 25px; width: 25px" (click)="increasePriority()"><p class="font-weight-bold">+</p></button>
+      </div>
+    </div>
+    <div class="container p-3 text-left">
+      <label for="comments1" class="card-subtitle font-weight-bold">Comments</label>
+      <textarea class="form-control mb-3" id="comments" rows="3" style="max-width: 50%;" name="comments" [(ngModel)]="model.comments"></textarea>
+    </div>
+    <div class="row">
+      <div class="col-sm"></div>
+      <div class="col-sm"></div>
+      <div class="col-sm d-flex flex-row-reverse">
+        <input class="btn btn-sm btn-primary ml-2" type="button" id="submitBtn" data-toggle="modal" data-target="#template" (click)="openModal(template)" value="Apply Changes">
+        <button class="btn btn-sm btn-danger" title="Cancel Edit" (click)="cancelEdit()">Cancel</button>
+      </div>
+    </div>
+    <ng-template #template>
+      <div class="modal-header">
+        <h4 class="modal-title pull-left">Confirmation</h4>
+      </div>
+      <div class="modal-body border">
+        <h6>Are you sure you want to save your changes?</h6>
+        <form #modalForm="ngForm" (ngSubmit)="applyEdits()" class="mt-3">
+          <input type="submit" value="Submit" class="btn btn-sm btn-success">
+          <button type="button" class="btn btn-sm btn-danger ml-2" (click)="cancel(template)">Cancel</button>
+        </form>
+      </div>
+      </ng-template>
+      </form>
+    </div>
+
+    <div class="card-footer p-2 font-weight-bold">
+      <p class="mb-0 {{request.approved | StatusPipe}}">{{request.approved | ApprovedBoolean}}</p>
+    </div>
+  </div>
+</div>
+
+
+

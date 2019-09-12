@@ -2,23 +2,27 @@
   <div class="container p-0">
     <div class="row">
       <div class="col-sm">
-        <button type="button" class="btn btn-dark mb-2" [routerLink]="['/home']"><i class="fa fa-arrow-circle-left mr-2"></i>Back</button>
+        <button type="button" class="btn btn-sm btn-dark mb-2" [routerLink]="['/home']"><i class="fa fa-arrow-circle-left mr-2"></i>Back</button>
       </div>
-      <div class="col-sm">
-
-      </div>
+      <div class="col-sm"></div>
       <div class="col-sm d-flex flex-row-reverse">
-          <!-- *ngIf="authorizedToApprove && !approved" -->
-        <button *ngIf="authorizedToApprove && !approved" type="button" class="btn btn-success mb-2" [routerLink]="['/request-approve', request.esr]"><i class="fa fa-check-circle mr-2"></i>Approve</button>
-        <button *ngIf="approved" type="button" class="btn btn-warning mb-2" (click)="openModal(template)"><i class="fa fa-exclamation-circle mr-2"></i>Update Status</button>
+        <button *ngIf="authorizedToApprove && !approved" type="button" class="btn btn-sm btn-warning mb-2" [routerLink]="['/request-approve', request.esr]"><i class="fa fa-check-circle mr-2"></i>Approve</button>
       </div>
     </div>
   </div>
   <div class="card text-center border-dark shadow">
       <div class="card-header">
-          <h3 class="card-title font-weight-bolder mb-0">{{request.esr}}</h3>
+        <div class="container">
+          <div class="row">
+            <div class="col-sm"></div>
+            <div class="col-sm"><h3 class="card-title font-weight-bolder mb-0">{{request.esr}}</h3></div>
+            <div class="col-sm d-flex flex-row-reverse">
+                <button class="btn btn-sm util" type="button" title="Edit" (click)="toggleEditMode()" [routerLink]="['/request-edit', request.esr]"><i class="fa fa-pencil"></i></button>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="card-body">
+      <div class="card-body border">
         <div class="container p-3 text-left">
             <h6 class="card-subtitle mb-1 font-weight-bold">Department</h6>
             <p class="card-text text-muted">{{request.department}}</p>
@@ -49,32 +53,54 @@
         </div>
         <div class="container p-3 text-left">
           <h6 class="card-subtitle mb-1 font-weight-bold">Status</h6>
-          <p class="card-text text-muted">{{status.value}}</p>
+          <p class="card-text text-muted">{{request.status}}</p>
         </div>
         <div class="container p-3 text-left">
           <h6 class="card-subtitle mb-1 font-weight-bold">Priority</h6>
-          <p class="card-text text-muted text-center" style="max-width: 40px;">{{request.priority}}</p>
+          <p class="card-text text-muted" style="max-width: 40px;">{{request.priority}}</p>
+        </div>
+        <div class="container p-3 text-left">
+          <h6 class="card-subtitle mb-1 font-weight-bold">Date Completed</h6>
+          <p class="card-text text-muted">{{request.dateCompleted | date}}</p>
+        </div>
+        <div class="container p-3 text-left">
+          <h6 class="card-subtitle mb-1 font-weight-bold">Comments</h6>
+          <p class="card-text text-muted">{{request.comments}}</p>
         </div>
       </div>
+
       <div class="card-footer p-2 font-weight-bold">
         <p class="mb-0 {{request.approved | StatusPipe}}">{{request.approved | ApprovedBoolean}}</p>
       </div>
     </div>
-</div>
-
-<ng-template #template>
-  <div class="modal-header">
-    <h4 class="modal-title pull-left">Status Update - {{request.esr}}</h4>
-  </div>
-  <div class="modal-body">
-    <form #statusForm="ngForm" (ngSubmit)="changeStatus()">
-      <select class="form-control custom-select-lg" required name="status" [(ngModel)]="model.status">
-        <option *ngFor="let status of statuses" [attr.selected]="request.status">{{status}}</option>
-      </select>
-      <div class="mt-4">
-        <button type="submit" class="btn btn-sm btn-primary mr-2" (click)="updateStatus()">Apply</button>
-        <button type="button" class="btn btn-sm btn-danger" (click)="cancel()">Cancel</button>
+    <div class="row mt-2">
+      <div class="col-sm">
+        <button *ngIf="!isCanceled" class="btn btn-sm util2 canc" type="button" title="Cancel Request" (click)="openModal(cancelTemplate)">Cancel Request</button>
       </div>
-    </form>
+      <div class="col-sm"></div>
+      <div class="col-sm d-flex flex-row-reverse">
+          <button *ngIf="!isCompleted" class="btn btn-sm util2 comp" type="button" title="Complete Request" (click)="openModal(completeTemplate)">Complete Request</button>
+      </div>
+    </div>
+</div>
+<ng-template #completeTemplate>
+    <div class="modal-header">
+      <h4 class="modal-title pull-left">Confirmation</h4>
+    </div>
+    <div class="modal-body border">
+      <h5>Complete request {{request.esr}}?</h5>
+      <button class="btn btn-sm btn-success mr-2 mt-2" (click)="completeRequest()">Confirm</button>
+      <button class="btn btn-sm btn-danger mt-2" (click)="cancel()">Cancel</button>
+    </div>
+  </ng-template>
+<ng-template #cancelTemplate>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Confirmation</h4>
+  </div>
+  <div class="modal-body border">
+    <h5>Cancel request {{request.esr}}?</h5>
+    <button class="btn btn-sm btn-success mr-2 mt-2" (click)="cancelRequest()">Confirm</button>
+    <button class="btn btn-sm btn-danger mt-2" (click)="cancel()">Cancel</button>
   </div>
 </ng-template>
+

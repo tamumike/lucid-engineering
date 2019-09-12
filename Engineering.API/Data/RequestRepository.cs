@@ -8,6 +8,8 @@ using Microsoft.EntityFrameworkCore;
 using System.DirectoryServices.AccountManagement;
 using Engineering.API.Helpers;
 using Microsoft.AspNetCore.Http;
+using MimeKit;
+using MailKit.Net.Smtp;
 
 namespace Engineering.API.Data
 {
@@ -15,8 +17,10 @@ namespace Engineering.API.Data
     {
         private readonly DataContext _context;
         private readonly IHttpContextAccessor _httpContextAccessor;
-        public RequestRepository(DataContext context, IHttpContextAccessor httpContextAccessor)
+        private readonly IEmailSender _emailSender;
+        public RequestRepository(DataContext context, IHttpContextAccessor httpContextAccessor, IEmailSender emailSender)
         {
+            _emailSender = emailSender;
             _httpContextAccessor = httpContextAccessor;
             _context = context;
         }
@@ -138,10 +142,34 @@ namespace Engineering.API.Data
             return await _context.SaveChangesAsync() > 0;
         }
 
+        public bool SendEmail(string recipient, string subject, string ESR, string body)
+        {
+            var message = new MimeMessage();
+            var linkToESR = " <a href=http://localhost:4200/requests/" + ESR + "> Click Here</a> to view the request.";
+            message.From.Add(new MailboxAddress("ESR", "ESR@lucid-energy.com"));
+            message.To.Add(new MailboxAddress(recipient));
+            message.Subject = subject;
+            message.Body = new TextPart("html")
+            {
+                Text = @"ESR " + ESR + body + linkToESR
+            };
+
+			using (var client = new SmtpClient ()) {
+				client.ServerCertificateValidationCallback = (s,c,h,e) => true;
+
+				client.Connect ("10.10.30.188", 25, false);
+
+				client.Send (message);
+				client.Disconnect (true);
+			}
+            return true;
+        }
+
         public async Task<Request> SubmitRequest(Request request)
         {
             await _context.Requests.AddAsync(request);
             await _context.SaveChangesAsync();
+
             return request;
         }
     }

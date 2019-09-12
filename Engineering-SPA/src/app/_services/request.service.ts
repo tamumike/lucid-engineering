@@ -90,4 +90,28 @@ changeStatus(request: Request) {
   return this.http.put(this.baseUrl + 'requests/status/' + request.esr, request);
 }
 
+updateRequest(request: Request) {
+  return this.http.put(this.baseUrl + 'requests/update/' + request.esr, request);
+}
+
+completeRequest(request: Request) {
+  return this.http.put(this.baseUrl + 'requests/complete/' + request.esr, request);
+}
+
+cancelRequest(request: Request) {
+  return this.http.put(this.baseUrl + 'requests/cancel/' + request.esr, request);
+}
+
+checkForChanges(request: Request, model: Request): boolean {
+  const aProps = Object.getOwnPropertyNames(request);
+
+  for (let i = 0; i < aProps.length; i++) {
+    const propName = aProps[i];
+    if (request[propName] !== model[propName]) {
+      return true;
+    }
+  }
+  return false;
+}
+
 }

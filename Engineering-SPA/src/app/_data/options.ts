@@ -8,11 +8,5 @@ export const options = {
   locations: [
     'South Carlsbad',
     'Artesia'
-  ],
-  statuses: [
-    'Started',
-    'In Queue',
-    'Near Completion',
-    'Under Review'
   ]
 };

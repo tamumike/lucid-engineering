@@ -6,6 +6,8 @@ import { Request } from '../../_models/request';
 import { UserService } from 'src/app/_services/user.service';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap';
 import { options } from '../../_data/options';
+import { AlertifyService } from 'src/app/_services/alertify.service';
+import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'app-request-detail',
@@ -17,12 +19,14 @@ export class RequestDetailComponent implements OnInit {
   authorizedToApprove: any;
   approved: any;
   modalRef: BsModalRef;
-  statuses = options.statuses;
+  editMode = false;
   model: any = {};
-  status = new FormControl('');
+  isCanceled = false;
+  isCompleted = false;
+  approvedRequest: any = {};
 
   constructor(private requestService: RequestService, private route: ActivatedRoute, private userService: UserService,
-    private modalService: BsModalService, private router: Router) { }
+    private modalService: BsModalService, private router: Router, private alertify: AlertifyService) { }
 
   ngOnInit() {
     this.route.data.subscribe(data => {
@@ -30,8 +34,9 @@ export class RequestDetailComponent implements OnInit {
       this.approved = this.request.approved;
     });
 
-    this.status.setValue(this.request.status);
+    this.checkStatus();
     this.isAuthorizedToApprove();
+    this.model = Object.assign({}, this.request);
   }
 
   isAuthorizedToApprove() {
@@ -50,16 +55,41 @@ export class RequestDetailComponent implements OnInit {
     this.modalRef.hide();
   }
 
-  updateStatus() {
-    this.status.setValue(this.model.status);
+  toggleEditMode() {
+    this.editMode = !this.editMode;
   }
 
   changeStatus() {
     this.model.esr = this.request.esr;
     this.requestService.changeStatus(this.model).subscribe(response => {
-      this.modalRef.hide();
     }, error => {
       console.log(error);
     });
+  }
+
+  checkStatus() {
+    this.request.status === 'Canceled' ? this.isCanceled = true : this.isCanceled = false;
+    this.request.status === 'Completed' ? this.isCompleted = true : this.isCompleted = false;
+  }
+
+  completeRequest() {
+    this.requestService.completeRequest(this.request).subscribe(response => {
+      this.alertify.success(`Request ${this.request.esr} has been completed!`);
+      this.router.navigate(['/home']);
+    }, error => {
+      this.alertify.error('Something went wrong....');
+    });
+    this.modalRef.hide();
+  }
+
+  cancelRequest() {
+    this.requestService.cancelRequest(this.request).subscribe(response => {
+      this.approvedRequest = Object.assign({}, response);
+      this.alertify.success(`Request ${this.request.esr} has been canceled.`);
+      this.router.navigate(['/home']);
+    }, error => {
+      this.alertify.error('Something went wrong....');
+    });
+    this.modalRef.hide();
   }
 }

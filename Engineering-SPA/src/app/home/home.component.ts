@@ -6,10 +6,19 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
+  createMode: boolean;
 
   constructor() { }
 
   ngOnInit() {
+  }
+
+  cancelCreateMode(createMode: boolean) {
+    this.createMode = !createMode;
+  }
+
+  toggleCreate() {
+    this.createMode = true;
   }
 
 

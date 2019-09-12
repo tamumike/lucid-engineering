@@ -43,6 +43,12 @@ export class RequestViewComponent implements OnInit {
     this.requestParams.esr = '';
     this.requestParams.approved = false;
     this.requestParams.orderBy = 'esr';
+
+    for (let i = 0; i < this.requests.length; i++) {
+      const req = this.requests[i];
+      const d = new Date(req.dateCompleted);
+    }
+
   }
 
   isAuthorized() {

@@ -15,5 +15,6 @@ namespace Engineering.API.Data
         bool IsAuthorizedMember();
         Task<bool> SaveAll();
         Task<bool> IsApproved(string ESR);
+        bool SendEmail(string recipient, string subject, string ESR, string body);
     }
 }

@@ -30,7 +30,7 @@ namespace Engineering.API.Controllers
             _mapper = mapper;
             _httpContextAccessor = httpContextAccessor;
             _repo = repo;
-            _user = _urepo.GetUserPrincipal().SamAccountName;
+            _user = _urepo.GetUsername();
         }
 
         [HttpGet]
@@ -99,14 +99,27 @@ namespace Engineering.API.Controllers
         [HttpPut("{ESR}")]
         public async Task<IActionResult> ApproveRequest(string ESR, RequestForApprovalDto requestForApprovalDto)
         {
+            var address = "mlinden@lucid-energy.com";
+            var subject = "*TEST*You have been assigned a Service Request*TEST*";
+
             if (await _repo.IsApproved(ESR))
                 return BadRequest("Already Approved");
 
             var requestFromRepo = await _repo.GetRequest(ESR);
 
-            requestFromRepo.ESR = await _repo.AssignESR(true);
+            if (requestForApprovalDto.EngineerAssigned != requestFromRepo.EngineerAssigned)
+                _repo.SendEmail(address, subject, requestFromRepo.ESR, " has been assigned to you.");
+
+            if (requestForApprovalDto.Comments != requestFromRepo.Comments && !requestForApprovalDto.Approved)
+                _repo.SendEmail(address, "Service Request Not Approved", requestFromRepo.ESR, " was not approved.");
 
             var requestToReturn = _mapper.Map(requestForApprovalDto, requestFromRepo);
+
+            if (requestForApprovalDto.Approved)
+            {
+                requestFromRepo.ESR = await _repo.AssignESR(true);
+                _repo.SendEmail(address, subject, requestFromRepo.ESR, " has been assigned to you.");
+            }
 
             if (await _repo.SaveAll())
                 return CreatedAtRoute("GetRequest", new { controller = "requests", ESR = requestFromRepo.ESR }, requestToReturn);
@@ -125,6 +138,56 @@ namespace Engineering.API.Controllers
                 return Ok(requestFromRepo);
 
             throw new Exception($"Error updating the status");
+        }
+
+        [HttpPut("update/{ESR}")]
+        public async Task<IActionResult> UpdateRequest(string ESR, RequestForUpdateDto requestForUpdateDto)
+        {
+            var address = "mlinden@lucid-energy.com";
+            var subject = "*TEST*You have been assigned a Service Request*TEST*";
+            var requestFromRepo = await _repo.GetRequest(ESR);
+
+            if (requestForUpdateDto.EngineerAssigned != requestFromRepo.EngineerAssigned)
+                _repo.SendEmail(address, subject, requestFromRepo.ESR, " has been assigned to you.");
+            
+            var requestToReturn = _mapper.Map(requestForUpdateDto, requestFromRepo);
+
+            if(await _repo.SaveAll())
+                return Ok(requestFromRepo);
+
+            throw new Exception($"Error updating the request.");
+        }
+
+        [HttpPut("complete/{ESR}")]
+        public async Task<IActionResult> CompleteRequest(string ESR, RequestForCompleteDto requestForCompleteDto)
+        {
+            var requestFromRepo = await _repo.GetRequest(ESR);
+
+            var requestToReturn = _mapper.Map(requestForCompleteDto, requestFromRepo);
+
+            requestFromRepo.DateCompleted = DateTime.Now.Date;
+            requestFromRepo.Status = "Completed";
+
+            if(await _repo.SaveAll())
+                return Ok(requestFromRepo);
+
+            throw new Exception($"Error updating the request.");                
+        }
+
+        [HttpPut("cancel/{ESR}")]
+        public async Task<IActionResult> CancelRequest(string ESR, RequestForCancelDto requestForCancelDto)
+        {
+            var requestFromRepo = await _repo.GetRequest(ESR);
+
+            var requestToReturn = _mapper.Map(requestForCancelDto, requestFromRepo);
+
+            requestFromRepo.Status = "Canceled";
+            requestFromRepo.DateCompleted = null;
+
+            if(await _repo.SaveAll())
+                return Ok(requestFromRepo);
+
+            throw new Exception($"Error updating the request.");   
         }
     }
 }

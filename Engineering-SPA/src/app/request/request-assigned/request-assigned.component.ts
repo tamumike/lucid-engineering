@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { RequestService } from 'src/app/_services/request.service';
 import { Request } from '../../_models/request';
 import { Pagination, PaginatedResult } from 'src/app/_models/pagination';
@@ -16,6 +16,8 @@ export class RequestAssignedComponent implements OnInit {
   requestParams: any = {};
   assigned = true;
   username: any;
+  @Output() cancelCreate = new EventEmitter();
+  createMode = true;
 
   constructor(private requestService: RequestService, private route: ActivatedRoute, private userService: UserService) { }
 
@@ -64,5 +66,10 @@ export class RequestAssignedComponent implements OnInit {
       console.log(error);
     });
   }
+
+cancel() {
+  this.createMode = !this.createMode;
+  this.cancelCreate.emit(this.createMode);
+}
 
 }

@@ -18,5 +18,6 @@ namespace Engineering.API.Dtos
         public string Description { get; set; }
         public string Status { get; set; }
         public int Priority { get; set; }
+        public DateTime DateCompleted { get; set; }
     }
 }

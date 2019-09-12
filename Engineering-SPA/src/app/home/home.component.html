@@ -1,4 +1,6 @@
 <div class="container-fluid">
-  <app-request-assigned></app-request-assigned>
+  <app-request-assigned (cancelCreate)="cancelCreateMode($event)"></app-request-assigned>
 </div>
-
+<div class="container shadow" style="background-color: #F3F2F2; max-width: 50%;">
+  <app-request-create *ngIf="createMode"></app-request-create>
+</div>

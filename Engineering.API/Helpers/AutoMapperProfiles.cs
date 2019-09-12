@@ -13,6 +13,9 @@ namespace Engineering.API.Helpers
             CreateMap<RequestForApprovalDto, Request>();
             CreateMap<RequestForSubmittalDto, Request>();
             CreateMap<RequestForStatusChangeDto, Request>();
+            CreateMap<RequestForUpdateDto, Request>();
+            CreateMap<RequestForCompleteDto, Request>();
+            CreateMap<RequestForCancelDto, Request>();
         }
     }
 }

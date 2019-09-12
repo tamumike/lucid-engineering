@@ -41,7 +41,8 @@ namespace Engineering.API
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddAuthentication(HttpSysDefaults.AuthenticationScheme);
             services.Configure<IISOptions>(options => options.AutomaticAuthentication = true);
-            // services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.Configure<EmailSettings>(Configuration.GetSection("EmailSettings"));
+            services.AddScoped<IEmailSender, EmailSender>();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
 
@@ -58,7 +59,7 @@ namespace Engineering.API
                 // app.UseHsts();
             }
 
-            // app.UseHttpsRedirection(); //
+            // app.UseHttpsRedirection();
             app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
             app.UseAuthentication();
             app.UseExceptionHandler(builder => {

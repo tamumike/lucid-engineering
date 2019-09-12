@@ -5,7 +5,7 @@ import { catchError } from 'rxjs/operators';
 import { of } from 'rxjs';
 
 @Injectable()
-export class RequestApproveResolver implements Resolve<Request> {
+export class RequestEditResolver implements Resolve<Request> {
 
   constructor(private requestService: RequestService, private router: Router) {}
 

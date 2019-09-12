@@ -63,7 +63,7 @@
       <td><i class="{{request.approved | IsApprovedPipe}}"></i></td>
       <td>{{request.engineerAssigned}}</td>
       <td>{{request.status}}</td>
-      <td>{{request.dateCompleted}}</td>
+      <td>{{ request.dateCompleted | DateCompleted | date}}</td>
     </tr>
   </tbody>
 </table>
@@ -100,5 +100,5 @@
   </pagination>
 </div>
 <div class="text-center mt-2">
-    <h6>{{pagination.totalItems}} Total Service Requests</h6>
-  </div>
+  <h6>{{pagination.totalItems}} Total Service Requests</h6>
+</div>

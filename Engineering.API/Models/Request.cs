@@ -19,5 +19,6 @@ namespace Engineering.API.Models
         public string Status { get; set; }
         public string EngineerAssigned { get; set; }
         public DateTime? DateCompleted { get; set; }
+        public string Comments { get; set; }
     }
 }
