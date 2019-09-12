@@ -16,17 +16,18 @@
           <table class="table table-striped table-hover table-sm table-bordered text-center">
               <thead class="thead-dark">
                 <tr>
-                  <th scope="col">View</th>
-                  <th scope="col">ESR</th>
-                  <th scope="col">Date Initiated</th>
+                  <th style="width: 2%;" scope="col">View</th>
+                  <th style="width: 5%;" scope="col">ESR</th>
+                  <th style="width: 7%;" scope="col">Date Initiated</th>
                   <th scope="col">Requested Completion Date</th>
                   <th scope="col">Initiated By</th>
+                  <th scope="col">Engineer Assigned</th>
                   <th scope="col">Department</th>
                   <th scope="col">Location</th>
-                  <th scope="col">Approved</th>
+                  <th style="width: 2%;" scope="col">Approved</th>
                   <th scope="col" style="width: 15%;">Description</th>
                   <th scope="col">Status</th>
-                  <th scope="col">Priority</th>
+                  <th style="width: 2%;" scope="col">Priority</th>
                 </tr>
               </thead>
               <tbody>
@@ -36,6 +37,7 @@
                   <td>{{request.dateInitiated | date}}</td>
                   <td>{{request.requestedDateForCompletion | date}}</td>
                   <td>{{request.initiatedBy}}</td>
+                  <td>{{request.engineerAssigned}}</td>
                   <td>{{request.department}}</td>
                   <td>{{request.locationOfProject}}</td>
                   <td><i class="{{request.approved | IsApprovedPipe}}"></i></td>

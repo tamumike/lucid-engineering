@@ -99,13 +99,13 @@ namespace Engineering.API.Controllers
         [HttpPut("{ESR}")]
         public async Task<IActionResult> ApproveRequest(string ESR, RequestForApprovalDto requestForApprovalDto)
         {
-            var address = "mlinden@lucid-energy.com";
-            var subject = "*TEST*You have been assigned a Service Request*TEST*";
+            var subject = "You have been assigned a Service Request";
 
             if (await _repo.IsApproved(ESR))
                 return BadRequest("Already Approved");
 
             var requestFromRepo = await _repo.GetRequest(ESR);
+            var address = requestFromRepo.EngineerAssigned + "@lucid-energy.com";
 
             if (requestForApprovalDto.EngineerAssigned != requestFromRepo.EngineerAssigned)
                 _repo.SendEmail(address, subject, requestFromRepo.ESR, " has been assigned to you.");
@@ -143,9 +143,10 @@ namespace Engineering.API.Controllers
         [HttpPut("update/{ESR}")]
         public async Task<IActionResult> UpdateRequest(string ESR, RequestForUpdateDto requestForUpdateDto)
         {
-            var address = "mlinden@lucid-energy.com";
-            var subject = "*TEST*You have been assigned a Service Request*TEST*";
+            // var address = "mlinden@lucid-energy.com";
+            var subject = "You have been assigned a Service Request";
             var requestFromRepo = await _repo.GetRequest(ESR);
+            var address = requestFromRepo.EngineerAssigned + "@lucid-energy.com";
 
             if (requestForUpdateDto.EngineerAssigned != requestFromRepo.EngineerAssigned)
                 _repo.SendEmail(address, subject, requestFromRepo.ESR, " has been assigned to you.");
