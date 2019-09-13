@@ -105,7 +105,7 @@ namespace Engineering.API.Controllers
                 return BadRequest("Already Approved");
 
             var requestFromRepo = await _repo.GetRequest(ESR);
-            var address = requestFromRepo.EngineerAssigned + "@lucid-energy.com";
+            var address = requestForApprovalDto.EngineerAssigned + "@lucid-energy.com";
 
             if (requestForApprovalDto.EngineerAssigned != requestFromRepo.EngineerAssigned)
                 _repo.SendEmail(address, subject, requestFromRepo.ESR, " has been assigned to you.");

@@ -147,7 +147,7 @@ namespace Engineering.API.Data
             var message = new MimeMessage();
             var linkToESR = " <a href=http://localhost:4200/requests/" + ESR + "> Click Here</a> to view the request.";
             message.From.Add(new MailboxAddress("ESR", "ESR@lucid-energy.com"));
-            message.To.Add(new MailboxAddress(recipient));
+            message.To.Add(new MailboxAddress("recipient", recipient));
             message.Subject = subject;
             message.Body = new TextPart("html")
             {
