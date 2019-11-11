@@ -12,7 +12,7 @@ namespace Engineering.API.Data
     {
         private string _domain = "LUCIDENERGY";
         private string _group = "Engineer_ESR";
-        private string _approver = "MLane";
+        private string _approver = "CMiddleton";
         // private string _approver = "mlinden";
         private readonly IHttpContextAccessor _httpContextAccessor;
         public UserRepository(IHttpContextAccessor httpContextAccessor) 
